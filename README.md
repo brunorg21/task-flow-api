@@ -18,12 +18,12 @@ Status das Tarefas: Oferecer uma visão clara do status atual de cada tarefa, in
 
 ## Regras da aplicação
 
-- [] Deve ser possível registrar um usuário;
-- [] Deve ser possível cadastar uma organização;
-- [] O usuário poderá convidar outros usuários para sua organização;
-- [] Deve ser possível cadastrar uma tarefa;
-- [] Deve ser possível filtrar as tarefas por status;
-- [] Deve ser possível filtrar as tarefas finalizadas na semana atual;
+- [ ] Deve ser possível registrar um usuário;
+- [ ] Deve ser possível cadastar uma organização;
+- [ ] O usuário poderá convidar outros usuários para sua organização;
+- [ ] Deve ser possível cadastrar uma tarefa;
+- [ ] Deve ser possível filtrar as tarefas por status;
+- [ ] Deve ser possível filtrar as tarefas finalizadas na semana atual;
 
 ## Regras de negócio
 
@@ -33,16 +33,24 @@ Status das Tarefas: Oferecer uma visão clara do status atual de cada tarefa, in
 npm install
 ```
 
+ou
+
 ```bash
 pnpm install
 ```
+
+ou
 
 ```bash
 yarn install
 ```
 
 - Olhe o arquivo '.env-example' e crie um '.env' com as mesma informações;
-- Em seguida rode o comando para subir o banco de dados:
+- Rode o comando para subir o banco de dados:
   ```bash
   npm run docker
+  ```
+- Por fim rode o comando para rodar a aplicação:
+  ```bash
+  npm run dev
   ```
