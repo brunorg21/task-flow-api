@@ -20,12 +20,14 @@ Status das Tarefas: Oferecer uma visão clara do status atual de cada tarefa, in
 
 - [ ] Deve ser possível registrar um usuário;
 - [ ] Deve ser possível cadastar uma organização;
-- [ ] O usuário poderá convidar outros usuários para sua organização;
 - [ ] Deve ser possível cadastrar uma tarefa;
 - [ ] Deve ser possível filtrar as tarefas por status;
 - [ ] Deve ser possível filtrar as tarefas finalizadas na semana atual;
 
 ## Regras de negócio
+
+- [ ] O usuário poderá criar tarefas mesmo sem uma organização;
+- [ ] O usuário poderá convidar outros usuários para sua organização;
 
 ## Instalação
 
