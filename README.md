@@ -16,7 +16,7 @@ Gerenciamento de Tarefas: Permitir que os usuários criem, atribuam e acompanhem
 
 Status das Tarefas: Oferecer uma visão clara do status atual de cada tarefa, incluindo opções como "Em Andamento", "Concluída" e "Cancelada", facilitando o acompanhamento do progresso.
 
-## Regras da aplicação
+## Requisitos Funcionais
 
 - [ ] Deve ser possível registrar um usuário;
 - [ ] Deve ser possível cadastar uma organização;
