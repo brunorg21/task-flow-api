@@ -21,6 +21,9 @@ Status das Tarefas: Oferecer uma visão clara do status atual de cada tarefa, in
 - [ ] Deve ser possível registrar um usuário;
 - [ ] Deve ser possível cadastar uma organização;
 - [ ] Deve ser possível cadastrar uma tarefa;
+- [ ] Deve ser possível designar irá fazer a tarefa;
+- [ ] Deve ser possível adicionar um anexo para cada tarefa;
+- [ ] Deve ser possível adicionar um nota para tarefa;
 - [ ] Deve ser possível filtrar as tarefas por status;
 - [ ] Deve ser possível filtrar as tarefas finalizadas na semana atual;
 
@@ -28,6 +31,7 @@ Status das Tarefas: Oferecer uma visão clara do status atual de cada tarefa, in
 
 - [ ] O usuário poderá criar tarefas mesmo sem uma organização;
 - [ ] O usuário poderá convidar outros usuários para sua organização;
+- [ ] Ao criar uma nova tarefa, não será obrigatório o envio de um anexo;
 
 ## Instalação
 
