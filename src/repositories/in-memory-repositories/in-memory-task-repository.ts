@@ -17,18 +17,48 @@ export class InMemoryTaskRepository implements TaskRepository {
       title: data.title,
     } as ITask;
 
+    this.items.push(task);
+
     return task;
   }
-  findById(taskId: string): Promise<ITask> {
-    throw new Error("Method not implemented.");
+  async findById(taskId: string): Promise<ITask | null> {
+    const task = this.items.find((task) => task.id === taskId);
+
+    if (!task) {
+      return null;
+    }
+
+    return task;
   }
-  findManyByUser(userId: string): Promise<ITask[]> {
-    throw new Error("Method not implemented.");
+  async findManyByUser(userId: string): Promise<ITask[] | null> {
+    const tasks = this.items.filter((task) => task.userId === userId);
+
+    if (!tasks) {
+      return null;
+    }
+
+    return tasks;
   }
-  findManyByOrganization(organizationId: string): Promise<ITask[]> {
-    throw new Error("Method not implemented.");
+  async findManyByOrganization(
+    organizationId: string
+  ): Promise<ITask[] | null> {
+    const tasks = this.items.filter(
+      (task) => task.organizationId === organizationId
+    );
+
+    if (!tasks) {
+      return null;
+    }
+
+    return tasks;
   }
-  findByStatus(status: string): Promise<ITask[]> {
-    throw new Error("Method not implemented.");
+  async findByStatus(status: string): Promise<ITask[] | null> {
+    const tasks = this.items.filter((task) => task.status === status);
+
+    if (!tasks) {
+      return null;
+    }
+
+    return tasks;
   }
 }
