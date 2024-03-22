@@ -1,4 +1,4 @@
-import { ITaskCreate, ITask } from "@/models/task-model";
+import { ITask, ITaskCreate } from "@/models/task-model";
 import { TaskRepository } from "../task-repository";
 import { randomUUID } from "crypto";
 
@@ -13,7 +13,7 @@ export class InMemoryTaskRepository implements TaskRepository {
       createdAt: data.createdAt,
       noteId: data.noteId,
       organizationId: data.organizationId,
-      status: data.status,
+      status: "Em andamento",
       title: data.title,
     } as ITask;
 

@@ -1,7 +1,6 @@
 import { InMemoryTaskRepository } from "@/repositories/in-memory-repositories/in-memory-task-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 import { CreateTaskUseCase } from "./create";
-import { randomUUID } from "crypto";
 
 let inMemoryTaskRepository: InMemoryTaskRepository;
 let sut: CreateTaskUseCase;
@@ -19,7 +18,6 @@ describe("create task use case", () => {
       createdAt: new Date(),
       noteId: null,
       organizationId: null,
-      status: "In Progress",
       title: "Task 1",
       userId: "user-id",
     });

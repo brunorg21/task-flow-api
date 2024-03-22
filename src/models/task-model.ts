@@ -5,7 +5,7 @@ export interface ITask {
   userId: string;
   organizationId: string | null;
   assignedId: string;
-  status: "In Progress" | "Completed" | "Canceled";
+  status?: "Em andamento" | "Concluída" | "Cancelada";
   attachment: File | null;
   noteId: string | null;
 }
