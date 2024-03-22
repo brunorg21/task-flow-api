@@ -15,6 +15,7 @@ export class InMemoryTaskRepository implements TaskRepository {
       organizationId: data.organizationId,
       status: "Em andamento",
       title: data.title,
+      userId: data.userId,
     } as ITask;
 
     this.items.push(task);
@@ -31,6 +32,7 @@ export class InMemoryTaskRepository implements TaskRepository {
     return task;
   }
   async findManyByUser(userId: string): Promise<ITask[] | null> {
+    console.log(userId);
     const tasks = this.items.filter((task) => task.userId === userId);
 
     if (!tasks) {

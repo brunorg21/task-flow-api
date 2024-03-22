@@ -1,7 +1,7 @@
 import { TaskRepository } from "@/repositories/task-repository";
-import { TaskNotFoundError } from "../errors/task-not-found.-error";
+import { TaskNotFoundError } from "../errors/task-not-found-error";
 
-export class FindByIdUseCase {
+export class FindTaskByIdUseCase {
   constructor(private taskRepository: TaskRepository) {}
 
   async execute(id: string) {

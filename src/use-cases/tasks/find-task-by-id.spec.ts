@@ -1,15 +1,15 @@
 import { InMemoryTaskRepository } from "@/repositories/in-memory-repositories/in-memory-task-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { FindByIdUseCase } from "./find-by-id";
-import { TaskNotFoundError } from "../errors/task-not-found.-error";
+import { FindTaskByIdUseCase } from "./find-task-by-id";
+import { TaskNotFoundError } from "../errors/task-not-found-error";
 
 let inMemoryTaskRepository: InMemoryTaskRepository;
-let sut: FindByIdUseCase;
+let sut: FindTaskByIdUseCase;
 
 beforeEach(() => {
   inMemoryTaskRepository = new InMemoryTaskRepository();
-  sut = new FindByIdUseCase(inMemoryTaskRepository);
+  sut = new FindTaskByIdUseCase(inMemoryTaskRepository);
 });
 
 describe("find task by id use case", () => {
