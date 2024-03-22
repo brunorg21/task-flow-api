@@ -57,7 +57,7 @@ export class InMemoryTaskRepository implements TaskRepository {
   async findByStatus(status: string): Promise<ITask[] | null> {
     const tasks = this.items.filter((task) => task.status === status);
 
-    if (!tasks) {
+    if (tasks.length === 0) {
       return null;
     }
 
