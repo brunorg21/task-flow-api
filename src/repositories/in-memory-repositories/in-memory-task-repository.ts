@@ -32,7 +32,6 @@ export class InMemoryTaskRepository implements TaskRepository {
     return task;
   }
   async findManyByUser(userId: string): Promise<ITask[] | null> {
-    console.log(userId);
     const tasks = this.items.filter((task) => task.userId === userId);
 
     if (tasks.length === 0) {
