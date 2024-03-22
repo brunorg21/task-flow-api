@@ -35,7 +35,7 @@ export class InMemoryTaskRepository implements TaskRepository {
     console.log(userId);
     const tasks = this.items.filter((task) => task.userId === userId);
 
-    if (!tasks) {
+    if (tasks.length === 0) {
       return null;
     }
 
@@ -48,7 +48,7 @@ export class InMemoryTaskRepository implements TaskRepository {
       (task) => task.organizationId === organizationId
     );
 
-    if (!tasks) {
+    if (tasks.length === 0) {
       return null;
     }
 

@@ -2,6 +2,7 @@ import { InMemoryTaskRepository } from "@/repositories/in-memory-repositories/in
 import { beforeEach, describe, expect, it } from "vitest";
 
 import { FindManyTasksByUserUseCase } from "./find-many-tasks-by-user";
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 
 let inMemoryTaskRepository: InMemoryTaskRepository;
 let sut: FindManyTasksByUserUseCase;
@@ -43,9 +44,9 @@ describe("find task by id use case", () => {
     ]);
   });
 
-  // it("should not be able to find task with wrong id", async () => {
-  //   await expect(async () => {
-  //     await sut.execute("wrong-id");
-  //   }).rejects.toBeInstanceOf(TaskNotFoundError);
-  // });
+  it("should not be able to find many task by user with wrong id", async () => {
+    await expect(async () => {
+      await sut.execute("wrong-id");
+    }).rejects.toBeInstanceOf(ResourceNotFoundError);
+  });
 });

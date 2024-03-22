@@ -23,6 +23,8 @@ Status das Tarefas: Oferecer uma visão clara do status atual de cada tarefa, in
 - [x] Deve ser possível cadastrar uma tarefa;
 - [ ] Deve ser possível designar quem irá fazer a tarefa;
 - [ ] Deve ser possível adicionar um anexo para cada tarefa;
+- [x] Deve ser possível listar tarefas por usuário;
+- [ ] Deve ser possível listar tarefas por organização;
 - [ ] Deve ser possível adicionar um nota para tarefa;
 - [ ] Deve ser possível filtrar as tarefas por status;
 - [ ] Deve ser possível filtrar as tarefas finalizadas na semana atual;
