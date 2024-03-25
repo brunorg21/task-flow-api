@@ -19,21 +19,19 @@ Status das Tarefas: Oferecer uma visão clara do status atual de cada tarefa, in
 ## Requisitos Funcionais
 
 - [ ] Deve ser possível registrar um usuário;
-- [ ] Deve ser possível cadastar uma organização;
+- [x] Deve ser possível cadastar uma organização;
 - [x] Deve ser possível cadastrar uma tarefa;
 - [ ] Deve ser possível designar quem irá fazer a tarefa;
-- [ ] Deve ser possível adicionar um anexo para cada tarefa;
 - [x] Deve ser possível listar tarefas por usuário;
-- [ ] Deve ser possível listar tarefas por organização;
-- [ ] Deve ser possível adicionar um nota para tarefa;
-- [ ] Deve ser possível filtrar as tarefas por status;
+- [x] Deve ser possível listar tarefas por organização;
+- [x] Deve ser possível filtrar as tarefas por status;
 - [ ] Deve ser possível filtrar as tarefas finalizadas na semana atual;
+- [ ] O usuário poderá convidar outros usuários para sua organização;
 
 ## Regras de negócio
 
-- [ ] O usuário poderá criar tarefas mesmo sem uma organização;
-- [ ] O usuário poderá convidar outros usuários para sua organização;
-- [ ] Ao criar uma nova tarefa, não será obrigatório o envio de um anexo;
+- [x] O usuário poderá criar tarefas mesmo sem uma organização;
+- [x] Ao criar uma nova tarefa, não será obrigatório o envio de um anexo;
 
 ## Instalação
 
