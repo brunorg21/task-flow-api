@@ -31,7 +31,4 @@ export class InMemoryUserRepository implements UserRepository {
 
     return user;
   }
-  assignUser(data: IAssignUser): Promise<IUser> {
-    throw new Error("Method not implemented.");
-  }
 }

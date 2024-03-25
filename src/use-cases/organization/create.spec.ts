@@ -3,6 +3,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { CreateOrganizationUseCase } from "./create";
 
 let inMemoryOrganizationRepository: InMemoryOrganizationRepository;
+
 let sut: CreateOrganizationUseCase;
 
 beforeEach(() => {
