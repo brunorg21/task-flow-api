@@ -18,15 +18,17 @@ Status das Tarefas: Oferecer uma visão clara do status atual de cada tarefa, in
 
 ## Requisitos Funcionais
 
-- [ ] Deve ser possível registrar um usuário;
+- [x] Deve ser possível registrar um usuário;
 - [x] Deve ser possível cadastar uma organização;
 - [x] Deve ser possível cadastrar uma tarefa;
 - [ ] Deve ser possível designar quem irá fazer a tarefa;
 - [x] Deve ser possível listar tarefas por usuário;
 - [x] Deve ser possível listar tarefas por organização;
 - [x] Deve ser possível filtrar as tarefas por status;
+- [x] Deve ser possível que uma organização tenha vários usuários;
+- [x] Deve ser possível que um usuário tenha várias organizações;
 - [ ] Deve ser possível filtrar as tarefas finalizadas na semana atual;
-- [ ] O usuário poderá convidar outros usuários para sua organização;
+- [x] O usuário poderá convidar outros usuários para sua organização;
 
 ## Regras de negócio
 
