@@ -3,7 +3,6 @@ export interface IUser {
   username: string;
   password: string;
   email: string;
-  organizationId: string | null;
 }
 
 export type IUserCreate = Omit<IUser, "id">;

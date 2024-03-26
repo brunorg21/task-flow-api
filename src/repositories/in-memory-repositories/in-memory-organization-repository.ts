@@ -24,19 +24,4 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
 
     return org;
   }
-
-  async assignUser(
-    userId: string,
-    organizationId: string
-  ): Promise<IUser | null> {
-    const user = this.userRepository?.items.find((user) => user.id === userId);
-
-    if (!user) {
-      return null;
-    }
-
-    user.organizationId = organizationId;
-
-    return user;
-  }
 }
