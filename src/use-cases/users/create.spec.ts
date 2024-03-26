@@ -15,7 +15,6 @@ describe("create user use case", () => {
   it("should be able to create a user", async () => {
     const user = await sut.execute({
       email: "bruno@email.com",
-      organizationId: null,
       password: await hash("123456", 6),
       username: "bruno",
     });

@@ -16,7 +16,6 @@ describe("authenticate user use case", () => {
   it("should be able to authenticate", async () => {
     await inMemoryUserRepository.create({
       email: "bruno@email.com",
-      organizationId: null,
       password: await hash("12345", 6),
       username: "bruno",
     });
@@ -40,7 +39,6 @@ describe("authenticate user use case", () => {
   it("should not be able to authenticate with wrong password", async () => {
     await inMemoryUserRepository.create({
       email: "bruno@email.com",
-      organizationId: null,
       password: await hash("12345", 6),
       username: "bruno",
     });
