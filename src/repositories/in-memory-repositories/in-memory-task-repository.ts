@@ -76,4 +76,10 @@ export class InMemoryTaskRepository implements TaskRepository {
 
     return tasks;
   }
+
+  async assignUserToTask(userId: string, task: ITask): Promise<ITask> {
+    task.assignedId = userId;
+
+    return task;
+  }
 }

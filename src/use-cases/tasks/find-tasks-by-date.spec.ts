@@ -37,9 +37,6 @@ describe("find task by date use case", () => {
       date: new Date(),
     });
 
-    console.log(tasks);
-    console.log(new Date(2025, 10, 21));
-
     expect(tasks).toHaveLength(2);
   });
 

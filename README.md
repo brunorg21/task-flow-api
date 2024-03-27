@@ -21,19 +21,19 @@ Status das Tarefas: Oferecer uma visão clara do status atual de cada tarefa, in
 - [x] Deve ser possível registrar um usuário;
 - [x] Deve ser possível cadastar uma organização;
 - [x] Deve ser possível cadastrar uma tarefa;
-- [ ] Deve ser possível designar quem irá fazer a tarefa;
+- [x] Deve ser possível designar quem irá fazer a tarefa;
 - [x] Deve ser possível listar tarefas por usuário;
 - [x] Deve ser possível listar tarefas por organização;
 - [x] Deve ser possível filtrar as tarefas por status;
 - [x] Deve ser possível que uma organização tenha vários usuários;
 - [x] Deve ser possível que um usuário tenha várias organizações;
-- [ ] Deve ser possível filtrar as tarefas por data;
-- [x] O usuário poderá convidar outros usuários para sua organização;
+- [x] Deve ser possível filtrar as tarefas por data;
 
 ## Regras de negócio
 
 - [x] O usuário poderá criar tarefas mesmo sem uma organização;
 - [x] Ao criar uma nova tarefa, não será obrigatório o envio de um anexo;
+- [x] O usuário poderá convidar outros usuários para sua organização;
 
 ## Instalação
 
