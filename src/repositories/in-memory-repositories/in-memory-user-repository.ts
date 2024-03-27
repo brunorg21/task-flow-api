@@ -1,9 +1,4 @@
-import {
-  IUserCreate,
-  IUser,
-  IAssignUser,
-  IAuthenticate,
-} from "@/models/user-model";
+import { IUserCreate, IUser } from "@/models/user-model";
 import { UserRepository } from "../user-repository";
 import { randomUUID } from "crypto";
 
@@ -14,11 +9,12 @@ export class InMemoryUserRepository implements UserRepository {
     const user = {
       id: randomUUID(),
       email: data.email,
-      organizationId: data.organizationId,
       password: data.password,
       username: data.username,
     } as IUser;
+
     this.items.push(user);
+
     return user;
   }
 

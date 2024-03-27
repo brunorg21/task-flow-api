@@ -1,6 +1,7 @@
 import { ITask, ITaskCreate } from "@/models/task-model";
 import { TaskRepository } from "../task-repository";
 import { randomUUID } from "crypto";
+import dayjs from "dayjs";
 
 export class InMemoryTaskRepository implements TaskRepository {
   public items: ITask[] = [];
@@ -55,6 +56,19 @@ export class InMemoryTaskRepository implements TaskRepository {
   }
   async findByStatus(status: string): Promise<ITask[] | null> {
     const tasks = this.items.filter((task) => task.status === status);
+
+    if (tasks.length === 0) {
+      return null;
+    }
+
+    return tasks;
+  }
+  async findByDate(date: Date): Promise<ITask[] | null> {
+    const tasks = this.items.filter(
+      (task) =>
+        dayjs(task.createdAt).isBefore(date) ||
+        dayjs(task.createdAt).isSame(date)
+    );
 
     if (tasks.length === 0) {
       return null;
