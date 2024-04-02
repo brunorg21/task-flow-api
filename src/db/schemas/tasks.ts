@@ -1,5 +1,5 @@
-import { date, pgEnum, text, uuid } from "drizzle-orm/pg-core";
-import { taskFlowschema } from ".";
+import { date, pgEnum, pgTable, text, uuid } from "drizzle-orm/pg-core";
+
 import { relations } from "drizzle-orm";
 import { userSchema } from "./users";
 
@@ -9,13 +9,17 @@ const statusTypeEnum = pgEnum("status", [
   "Cancelada",
 ]);
 
-export const taskSchema = taskFlowschema.table("tasks", {
+export const taskSchema = pgTable("tasks", {
   id: uuid("id").primaryKey(),
   title: text("title").notNull(),
   createdAt: date("createdAt").defaultNow(),
-  userId: uuid("userId").notNull(),
+  userId: uuid("userId")
+    .references(() => userSchema.id, { onDelete: "set null" })
+    .notNull(),
   organizationId: uuid("organizationId"),
-  assignedId: uuid("assignedId"),
+  assignedId: uuid("assignedId").references(() => userSchema.id, {
+    onDelete: "set null",
+  }),
   status: statusTypeEnum("status").default("Em andamento").notNull(),
   attachment: text("attachment"),
   noteId: uuid("noteId"),
@@ -23,7 +27,8 @@ export const taskSchema = taskFlowschema.table("tasks", {
 
 export const taskRelations = relations(taskSchema, ({ one }) => ({
   user: one(userSchema, {
-    fields: [taskSchema.userId],
-    references: [userSchema.id],
+    fields: [taskSchema.userId, taskSchema.assignedId],
+    references: [userSchema.id, userSchema.id],
+    relationName: "task-user",
   }),
 }));

@@ -6,7 +6,7 @@
   "scripts": {
     "test": "vitest run",
     "dev": "tsx watch src/server.ts",
-    "migrate": "tsx src/db/migrate.ts"
+    "migrate": "drizzle-kit generate:pg"
   },
   "keywords": [],
   "author": "",
