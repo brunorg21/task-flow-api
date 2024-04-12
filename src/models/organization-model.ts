@@ -1,7 +1,7 @@
 export interface IOrganization {
   id: string;
   name: string;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 export type IOrganizationCreate = Omit<IOrganization, "id">;

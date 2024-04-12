@@ -1,4 +1,4 @@
-import { IAssignUser, IUserCreate } from "@/models/user-model";
+import { IUserCreate } from "@/models/user-model";
 import { UserRepository } from "@/repositories/user-repository";
 
 export class CreateUserUseCase {

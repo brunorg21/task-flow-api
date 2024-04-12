@@ -6,4 +6,5 @@ import {
 export interface OrganizationRepository {
   create(data: IOrganizationCreate): Promise<IOrganization>;
   findById(id: string): Promise<IOrganization | null>;
+  save(organization: IOrganization): Promise<void>;
 }

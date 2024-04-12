@@ -21,7 +21,7 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
   }
 
   async findById(id: string): Promise<IOrganization | null> {
-    const organization = await this.items.find(
+    const organization = this.items.find(
       (organization) => organization.id === id
     );
 
@@ -30,5 +30,13 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
     }
 
     return organization;
+  }
+
+  async save(organization: IOrganization): Promise<void> {
+    const organizationIndex = this.items.findIndex(
+      (item) => item.id === organization.id
+    );
+
+    this.items[organizationIndex] = organization;
   }
 }
