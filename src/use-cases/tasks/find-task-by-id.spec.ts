@@ -2,7 +2,7 @@ import { InMemoryTaskRepository } from "@/repositories/in-memory-repositories/in
 import { beforeEach, describe, expect, it } from "vitest";
 
 import { FindTaskByIdUseCase } from "./find-task-by-id";
-import { TaskNotFoundError } from "../errors/task-not-found-error";
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 
 let inMemoryTaskRepository: InMemoryTaskRepository;
 let sut: FindTaskByIdUseCase;
@@ -32,6 +32,6 @@ describe("find task by id use case", () => {
   it("should not be able to find task with wrong id", async () => {
     await expect(async () => {
       await sut.execute("wrong-id");
-    }).rejects.toBeInstanceOf(TaskNotFoundError);
+    }).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 });

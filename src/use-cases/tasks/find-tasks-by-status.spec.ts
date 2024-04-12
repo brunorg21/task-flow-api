@@ -2,7 +2,7 @@ import { InMemoryTaskRepository } from "@/repositories/in-memory-repositories/in
 import { beforeEach, describe, expect, it } from "vitest";
 
 import { FindTasksByStatus } from "./find-tasks-by-status";
-import { TaskNotFoundError } from "../errors/task-not-found-error";
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 
 let inMemoryTaskRepository: InMemoryTaskRepository;
 let sut: FindTasksByStatus;
@@ -45,6 +45,6 @@ describe("find tasks by status use case", () => {
   it("should not be able to find tasks by status with wrong status", async () => {
     await expect(async () => {
       await sut.execute("wrong-status");
-    }).rejects.toBeInstanceOf(TaskNotFoundError);
+    }).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 });

@@ -1,8 +1,8 @@
 import { InMemoryTaskRepository } from "@/repositories/in-memory-repositories/in-memory-task-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { TaskNotFoundError } from "../errors/task-not-found-error";
 import { FindTaskByDate } from "./find-tasks-by-date";
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 
 let inMemoryTaskRepository: InMemoryTaskRepository;
 let sut: FindTaskByDate;
@@ -45,6 +45,6 @@ describe("find task by date use case", () => {
       await sut.execute({
         date: new Date(),
       });
-    }).rejects.toBeInstanceOf(TaskNotFoundError);
+    }).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 });

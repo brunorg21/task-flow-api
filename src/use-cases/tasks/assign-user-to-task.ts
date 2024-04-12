@@ -1,5 +1,5 @@
 import { TaskRepository } from "@/repositories/task-repository";
-import { TaskNotFoundError } from "../errors/task-not-found-error";
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 
 interface AssignUserToTaskUseCaseRequest {
   userId: string;
@@ -13,7 +13,7 @@ export class AssignUserToTask {
     const task = await this.taskRepository.findById(taskId);
 
     if (!task) {
-      throw new TaskNotFoundError();
+      throw new ResourceNotFoundError();
     }
 
     const assignTask = await this.taskRepository.assignUserToTask(userId, task);

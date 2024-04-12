@@ -1,6 +1,7 @@
 import { TaskRepository } from "@/repositories/task-repository";
-import { TaskNotFoundError } from "../errors/task-not-found-error";
+
 import { ITask } from "@/models/task-model";
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 
 interface FindTaskByDateUseCaseRequest {
   date: Date;
@@ -19,7 +20,7 @@ export class FindTaskByDate {
     const tasks = await this.taskRepository.findByDate(date);
 
     if (!tasks) {
-      throw new TaskNotFoundError();
+      throw new ResourceNotFoundError();
     }
 
     return {

@@ -4,13 +4,8 @@ import {
 } from "@/models/organization-model";
 import { OrganizationRepository } from "../organization-repository";
 import { randomUUID } from "crypto";
-import { IUser } from "@/models/user-model";
-import { UserRepository } from "../user-repository";
-import { InMemoryUserRepository } from "./in-memory-user-repository";
 
 export class InMemoryOrganizationRepository implements OrganizationRepository {
-  constructor(private userRepository?: InMemoryUserRepository) {}
-
   public items: IOrganization[] = [];
 
   async create(data: IOrganizationCreate): Promise<IOrganization> {
@@ -23,5 +18,17 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
     this.items.push(org);
 
     return org;
+  }
+
+  async findById(id: string): Promise<IOrganization | null> {
+    const organization = await this.items.find(
+      (organization) => organization.id === id
+    );
+
+    if (!organization) {
+      return null;
+    }
+
+    return organization;
   }
 }

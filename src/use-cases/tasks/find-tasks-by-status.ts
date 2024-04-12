@@ -1,5 +1,6 @@
 import { TaskRepository } from "@/repositories/task-repository";
-import { TaskNotFoundError } from "../errors/task-not-found-error";
+
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 
 export class FindTasksByStatus {
   constructor(private taskRepository: TaskRepository) {}
@@ -8,7 +9,7 @@ export class FindTasksByStatus {
     const tasks = await this.taskRepository.findByStatus(status);
 
     if (!tasks) {
-      throw new TaskNotFoundError();
+      throw new ResourceNotFoundError();
     }
 
     return tasks;
