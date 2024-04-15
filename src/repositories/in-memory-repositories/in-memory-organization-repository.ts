@@ -32,6 +32,12 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
     return organization;
   }
 
+  async delete(id: string): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === id);
+
+    this.items.splice(itemIndex, 1);
+  }
+
   async save(organization: IOrganization): Promise<void> {
     const organizationIndex = this.items.findIndex(
       (item) => item.id === organization.id
