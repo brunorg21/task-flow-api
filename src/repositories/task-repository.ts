@@ -8,4 +8,5 @@ export interface TaskRepository {
   findByStatus(status: string): Promise<ITask[] | null>;
   findByDate(date: Date): Promise<ITask[] | null>;
   assignUserToTask(userId: string, task: ITask): Promise<ITask>;
+  save(task: ITask): Promise<void>;
 }
