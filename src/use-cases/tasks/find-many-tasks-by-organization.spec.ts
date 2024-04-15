@@ -16,7 +16,7 @@ describe("find many tasks by organization use case", () => {
   it("should be able to find many tasks by organization", async () => {
     await inMemoryTaskRepository.create({
       assignedId: "assigned-id",
-      attachment: null,
+      attachments: null,
       createdAt: new Date(),
       noteId: null,
       organizationId: "org-id",
@@ -25,7 +25,7 @@ describe("find many tasks by organization use case", () => {
     });
     await inMemoryTaskRepository.create({
       assignedId: "assigned-id",
-      attachment: null,
+      attachments: null,
       createdAt: new Date(),
       noteId: null,
       organizationId: "org-id",

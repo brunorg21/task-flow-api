@@ -25,7 +25,7 @@ describe("create user use case", () => {
 
     const task = await inMemoryTaskRepository.create({
       assignedId: null,
-      attachment: null,
+      attachmentId: null,
       createdAt: new Date(),
       noteId: null,
       organizationId: null,

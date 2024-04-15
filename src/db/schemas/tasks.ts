@@ -21,7 +21,7 @@ export const taskSchema = pgTable("tasks", {
     onDelete: "set null",
   }),
   status: statusTypeEnum("status").default("Em andamento").notNull(),
-  attachment: text("attachment"),
+  attachmentId: text("attachmentId"),
   noteId: uuid("noteId"),
 });
 

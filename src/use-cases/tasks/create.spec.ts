@@ -14,7 +14,7 @@ describe("create task use case", () => {
   it("should be able to create task", async () => {
     const task = await sut.execute({
       assignedId: "assigned-id",
-      attachment: null,
+      attachments: null,
       createdAt: new Date(),
       noteId: null,
       organizationId: null,

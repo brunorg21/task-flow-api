@@ -16,7 +16,7 @@ describe("find tasks by status use case", () => {
   it("should be able to find tasks by status", async () => {
     await inMemoryTaskRepository.create({
       assignedId: "assigned-id",
-      attachment: null,
+      attachments: null,
       createdAt: new Date(),
       noteId: null,
       organizationId: null,
@@ -25,7 +25,7 @@ describe("find tasks by status use case", () => {
     });
     await inMemoryTaskRepository.create({
       assignedId: "assigned-id",
-      attachment: null,
+      attachments: null,
       createdAt: new Date(),
       noteId: null,
       organizationId: null,

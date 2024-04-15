@@ -16,7 +16,7 @@ describe("find task by id use case", () => {
   it("should be able to find task", async () => {
     const taskCreated = await inMemoryTaskRepository.create({
       assignedId: "assigned-id",
-      attachment: null,
+      attachments: null,
       createdAt: new Date(),
       noteId: null,
       organizationId: null,

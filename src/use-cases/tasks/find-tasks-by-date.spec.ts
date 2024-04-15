@@ -16,7 +16,7 @@ describe("find task by date use case", () => {
   it("should be able to find tasks by date", async () => {
     await inMemoryTaskRepository.create({
       assignedId: "assigned-id",
-      attachment: null,
+      attachments: null,
       createdAt: new Date(),
       noteId: null,
       organizationId: null,
@@ -25,7 +25,7 @@ describe("find task by date use case", () => {
     });
     await inMemoryTaskRepository.create({
       assignedId: "assigned-id",
-      attachment: null,
+      attachments: null,
       createdAt: new Date(),
       noteId: null,
       organizationId: null,

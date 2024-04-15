@@ -10,7 +10,7 @@ export class InMemoryTaskRepository implements TaskRepository {
     const task = {
       id: randomUUID(),
       assignedId: data.assignedId,
-      attachment: data.attachment,
+      attachments: data.attachments,
       createdAt: data.createdAt,
       noteId: data.noteId,
       organizationId: data.organizationId,
