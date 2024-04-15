@@ -83,6 +83,12 @@ export class InMemoryTaskRepository implements TaskRepository {
     return task;
   }
 
+  async delete(id: string): Promise<void> {
+    const itemIndex = this.items.findIndex((item) => item.id === id);
+
+    this.items.splice(itemIndex, 1);
+  }
+
   async save(task: ITask): Promise<void> {
     const taskIndex = this.items.findIndex((item) => item.id === task.id);
 
