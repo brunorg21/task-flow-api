@@ -2,9 +2,12 @@ import { ITask, ITaskCreate } from "@/models/task-model";
 import { TaskRepository } from "../task-repository";
 import { randomUUID } from "crypto";
 import dayjs from "dayjs";
+import { AttachmentRepository } from "../attachment-repository";
 
 export class InMemoryTaskRepository implements TaskRepository {
   public items: ITask[] = [];
+
+  constructor(private attachmentRepository: AttachmentRepository) {}
 
   async create(data: ITaskCreate): Promise<ITask> {
     const task = {
@@ -87,6 +90,8 @@ export class InMemoryTaskRepository implements TaskRepository {
     const itemIndex = this.items.findIndex((item) => item.id === id);
 
     this.items.splice(itemIndex, 1);
+
+    this.attachmentRepository.deleteManyByTaskId(id);
   }
 
   async save(task: ITask): Promise<void> {

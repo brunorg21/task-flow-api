@@ -39,11 +39,9 @@ export class InMemoryAttachmentRepository implements AttachmentRepository {
     });
   }
 
-  async delete(id: string): Promise<void> {
-    const attachmentIndex = this.items.findIndex(
-      (item) => item.attachmentId === id
-    );
+  async deleteManyByTaskId(id: string): Promise<void> {
+    const attachments = this.items.filter((item) => item.taskId !== id);
 
-    this.items.splice(attachmentIndex, 1);
+    this.items = attachments;
   }
 }
