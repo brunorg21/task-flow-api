@@ -18,13 +18,27 @@ export class InMemoryAttachmentRepository implements AttachmentRepository {
     return attachment;
   }
 
-  async save(attachment: IAttachment): Promise<void> {
-    const attachmentIndex = this.items.findIndex(
-      (item) => item.id === attachment.id
+  async save(attachments: IAttachment[]): Promise<void> {
+    const newAttachmentIds = attachments.map(
+      (attachment) => attachment.attachmentId
     );
 
-    this.items[attachmentIndex] = attachment;
+    this.items = this.items.filter((item) =>
+      newAttachmentIds.includes(item.attachmentId)
+    );
+
+    attachments.forEach((newAttachment) => {
+      const existingIndex = this.items.findIndex(
+        (item) => item.attachmentId === newAttachment.attachmentId
+      );
+      if (existingIndex !== -1) {
+        this.items[existingIndex] = newAttachment;
+      } else {
+        this.items.push(newAttachment);
+      }
+    });
   }
+
   async delete(id: string): Promise<void> {
     const attachmentIndex = this.items.findIndex((item) => item.id === id);
 
