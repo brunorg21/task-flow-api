@@ -4,14 +4,18 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { hash } from "bcrypt";
 import { InMemoryTaskRepository } from "@/repositories/in-memory-repositories/in-memory-task-repository";
 import { AssignUserToTask } from "./assign-user-to-task";
+import { InMemoryAttachmentRepository } from "@/repositories/in-memory-repositories/in-memory-attachment-repository";
 
 let inMemoryUserRepository: InMemoryUserRepository;
 let inMemoryTaskRepository: InMemoryTaskRepository;
+let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
 let sut: AssignUserToTask;
 
 beforeEach(() => {
   inMemoryUserRepository = new InMemoryUserRepository();
-  inMemoryTaskRepository = new InMemoryTaskRepository();
+  inMemoryTaskRepository = new InMemoryTaskRepository(
+    inMemoryAttachmentRepository
+  );
   sut = new AssignUserToTask(inMemoryTaskRepository);
 });
 

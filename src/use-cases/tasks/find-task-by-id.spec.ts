@@ -3,12 +3,16 @@ import { beforeEach, describe, expect, it } from "vitest";
 
 import { FindTaskByIdUseCase } from "./find-task-by-id";
 import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { InMemoryAttachmentRepository } from "@/repositories/in-memory-repositories/in-memory-attachment-repository";
 
 let inMemoryTaskRepository: InMemoryTaskRepository;
+let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
 let sut: FindTaskByIdUseCase;
 
 beforeEach(() => {
-  inMemoryTaskRepository = new InMemoryTaskRepository();
+  inMemoryTaskRepository = new InMemoryTaskRepository(
+    inMemoryAttachmentRepository
+  );
   sut = new FindTaskByIdUseCase(inMemoryTaskRepository);
 });
 
