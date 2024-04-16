@@ -40,7 +40,9 @@ export class InMemoryAttachmentRepository implements AttachmentRepository {
   }
 
   async delete(id: string): Promise<void> {
-    const attachmentIndex = this.items.findIndex((item) => item.id === id);
+    const attachmentIndex = this.items.findIndex(
+      (item) => item.attachmentId === id
+    );
 
     this.items.splice(attachmentIndex, 1);
   }

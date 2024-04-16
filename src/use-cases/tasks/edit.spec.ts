@@ -47,6 +47,11 @@ describe("edit task use case", () => {
 
     expect(inMemoryTaskRepository.items[0].title).toEqual("task-1");
     expect(inMemoryTaskRepository.items[0].status).toEqual("Cancelada");
+    expect(inMemoryTaskRepository.items[0].attachments).toEqual([
+      "1",
+      "3",
+      "5",
+    ]);
     expect(inMemoryAttachmentRepository.items).toEqual([
       expect.objectContaining({
         attachmentId: "1",
