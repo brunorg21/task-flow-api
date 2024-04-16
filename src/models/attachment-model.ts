@@ -1,6 +1,8 @@
 export interface IAttachment {
   id: string;
-  url: string;
+  attachmentId: string;
   taskId: string;
   createdAt: Date;
 }
+
+export type IAttachmentCreate = Omit<IAttachment, "id">;

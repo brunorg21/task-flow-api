@@ -7,7 +7,7 @@ export async function makeTask(taskRepository: TaskRepository) {
     status: "Em andamento",
     userId: "user-1",
     assignedId: "assigned-1",
-    attachmentId: null,
+    attachments: null,
     noteId: "1",
     organizationId: null,
   });

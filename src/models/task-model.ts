@@ -6,7 +6,7 @@ export interface ITask {
   organizationId: string | null;
   assignedId: string | null;
   status?: "Em andamento" | "Concluída" | "Cancelada";
-  attachments: string | null;
+  attachments: string[] | null;
   noteId: string | null;
 }
 
