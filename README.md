@@ -20,7 +20,10 @@ Status das Tarefas: Oferecer uma visão clara do status atual de cada tarefa, in
 
 - [x] Deve ser possível registrar um usuário;
 - [x] Deve ser possível cadastar uma organização;
+- [x] Deve ser possível deletar uma organização;
 - [x] Deve ser possível cadastrar uma tarefa;
+- [x] Deve ser possível deletar uma tarefa;
+- [x] Deve ser possível atualizar uma tarefa;
 - [x] Deve ser possível designar quem irá fazer a tarefa;
 - [x] Deve ser possível listar tarefas por usuário;
 - [x] Deve ser possível listar tarefas por organização;
@@ -29,6 +32,8 @@ Status das Tarefas: Oferecer uma visão clara do status atual de cada tarefa, in
 - [x] Deve ser possível que um usuário tenha várias organizações;
 - [x] Deve ser possível filtrar as tarefas por data;
 - [ ] Deve ser possível adicionar notas para cada tarefa;
+- [ ] Deve ser possível remover notas;
+- [ ] Deve ser possível atualizar notas;
 
 ## Regras de negócio
 
