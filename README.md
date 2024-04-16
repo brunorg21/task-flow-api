@@ -28,6 +28,7 @@ Status das Tarefas: Oferecer uma visão clara do status atual de cada tarefa, in
 - [x] Deve ser possível que uma organização tenha vários usuários;
 - [x] Deve ser possível que um usuário tenha várias organizações;
 - [x] Deve ser possível filtrar as tarefas por data;
+- [ ] Deve ser possível adicionar notas para cada tarefa;
 
 ## Regras de negócio
 
