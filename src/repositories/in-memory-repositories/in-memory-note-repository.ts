@@ -10,6 +10,7 @@ export class InMemoryNoteRepository implements NoteRepository {
       id: randomUUID(),
       authorId: data.authorId,
       createdAt: new Date(),
+      updatedAt: null,
       description: data.description,
       taskId: data.taskId,
     } as INote;

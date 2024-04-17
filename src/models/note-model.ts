@@ -4,6 +4,7 @@ export interface INote {
   authorId: string;
   description: string;
   createdAt: Date;
+  updatedAt: Date | null;
 }
 
-export type INoteCreate = Omit<INote, "id" | "createdAt">;
+export type INoteCreate = Omit<INote, "id" | "createdAt" | "updatedAt">;

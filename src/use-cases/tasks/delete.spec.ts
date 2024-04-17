@@ -40,8 +40,6 @@ describe("delete task use case", () => {
 
     await sut.execute(newTask.id);
 
-    console.log(inMemoryTaskRepository.items);
-
     expect(inMemoryTaskRepository.items).toHaveLength(0);
     expect(inMemoryAttachmentRepository.items).toHaveLength(0);
   });
