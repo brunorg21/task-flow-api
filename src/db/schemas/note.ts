@@ -25,6 +25,6 @@ export const noteRelations = relations(noteSchema, ({ one }) => ({
   task: one(taskSchema, {
     fields: [noteSchema.taskId],
     references: [taskSchema.id],
-    relationName: "note-task",
+    relationName: "note-task  ",
   }),
 }));
