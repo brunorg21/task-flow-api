@@ -9,6 +9,7 @@ import {
 
 import { relations } from "drizzle-orm";
 import { userSchema } from "./users";
+import { noteSchema } from "./note";
 
 const statusTypeEnum = pgEnum("status", [
   "Em andamento",
@@ -29,13 +30,13 @@ export const taskSchema = pgTable("tasks", {
   }),
   status: statusTypeEnum("status").default("Em andamento").notNull(),
   attachmentId: text("attachmentId"),
-  noteId: uuid("noteId"),
 });
 
-export const taskRelations = relations(taskSchema, ({ one }) => ({
+export const taskRelations = relations(taskSchema, ({ one, many }) => ({
   user: one(userSchema, {
     fields: [taskSchema.userId, taskSchema.assignedId],
     references: [userSchema.id, userSchema.id],
     relationName: "task-user",
   }),
+  note: many(noteSchema),
 }));
