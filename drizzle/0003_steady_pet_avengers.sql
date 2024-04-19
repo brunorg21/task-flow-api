@@ -1,1 +1,0 @@
-ALTER TABLE "tasks" RENAME COLUMN "attachment" TO "attachmentId";

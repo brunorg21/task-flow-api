@@ -5,50 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1712025240047,
-      "tag": "0000_thick_bromley",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1712089242495,
-      "tag": "0001_odd_carmella_unuscione",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1712884211973,
-      "tag": "0002_spicy_exodus",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1713144407328,
-      "tag": "0003_steady_pet_avengers",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "5",
-      "when": 1713408670030,
-      "tag": "0004_soft_thor",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "5",
-      "when": 1713530050694,
-      "tag": "0005_mature_the_fallen",
-      "breakpoints": true
-    },
-    {
-      "idx": 6,
-      "version": "5",
-      "when": 1713530864422,
-      "tag": "0006_far_marauders",
+      "when": 1713532244111,
+      "tag": "0000_chemical_blazing_skull",
       "breakpoints": true
     }
   ]

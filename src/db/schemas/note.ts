@@ -1,4 +1,4 @@
-import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { taskSchema } from "./tasks";
 import { userSchema } from "./users";
 import { relations } from "drizzle-orm";
@@ -9,10 +9,10 @@ export const noteSchema = pgTable("note", {
     .$defaultFn(() => createId())
     .primaryKey(),
   taskId: text("taskId")
-    .references(() => taskSchema.id, { onDelete: "set null" })
+    .references(() => taskSchema.id)
     .notNull(),
   authorId: text("authorId")
-    .references(() => userSchema.id, { onDelete: "set null" })
+    .references(() => userSchema.id)
     .notNull(),
   description: text("description"),
   createdAt: timestamp("createdAt").defaultNow(),

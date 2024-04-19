@@ -9,10 +9,10 @@ export const userOrganization = pgTable("userOrganization", {
     .$defaultFn(() => createId())
     .primaryKey(),
   userId: text("userId")
-    .references(() => userSchema.id, { onDelete: "set null" })
+    .references(() => userSchema.id)
     .notNull(),
   organizationId: text("organizationId")
-    .references(() => organizationSchema.id, { onDelete: "set null" })
+    .references(() => organizationSchema.id)
     .notNull(),
 });
 
