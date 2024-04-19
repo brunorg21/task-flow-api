@@ -1,11 +1,11 @@
-version: "3"
+version: "3.8"
 
 services:
-  task-flow-pg:
-    image: bitnami/postgresql
+  postgres:
+    image: bitnami/postgresql:latest
     ports:
-      - 5432:5432
+      - "5432:5432"
     environment:
-      - POSTGRESQL_USERNAME=docker
-      - POSTGRESQL_PASSWORD=docker
-      - POSTGRESQL_DATABASE=task-flow
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=taskflow

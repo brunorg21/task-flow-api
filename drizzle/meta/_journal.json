@@ -29,6 +29,27 @@
       "when": 1713144407328,
       "tag": "0003_steady_pet_avengers",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1713408670030,
+      "tag": "0004_soft_thor",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1713530050694,
+      "tag": "0005_mature_the_fallen",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1713530864422,
+      "tag": "0006_far_marauders",
+      "breakpoints": true
     }
   ]
 }

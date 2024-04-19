@@ -1,4 +1,5 @@
 import { z } from "zod";
+import "dotenv/config";
 
 const envSchmea = z.object({
   NODE_ENV: z.enum(["dev", "production"]),

@@ -2,13 +2,16 @@ import { pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 import { taskSchema } from "./tasks";
 import { userSchema } from "./users";
 import { relations } from "drizzle-orm";
+import { createId } from "@paralleldrive/cuid2";
 
 export const noteSchema = pgTable("note", {
-  id: uuid("id").primaryKey(),
-  taskId: uuid("taskId")
+  id: text("id")
+    .$defaultFn(() => createId())
+    .primaryKey(),
+  taskId: text("taskId")
     .references(() => taskSchema.id, { onDelete: "set null" })
     .notNull(),
-  authorId: uuid("authorId")
+  authorId: text("authorId")
     .references(() => userSchema.id, { onDelete: "set null" })
     .notNull(),
   description: text("description"),
