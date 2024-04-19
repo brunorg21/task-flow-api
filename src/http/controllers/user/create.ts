@@ -1,5 +1,6 @@
-import { db } from "@/db/connection";
-import { userSchema } from "@/db/schemas";
+import { makeUserRepository } from "@/http/factories/make-user-repository";
+import { UserAlreadyExistError } from "@/use-cases/errors/user-already-exist-error";
+import { hash } from "bcrypt";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
@@ -12,15 +13,27 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
 
   const { email, name, password } = createUserRequestBody.parse(req.body);
 
-  const user = await db.insert(userSchema).values({
-    email,
-    password,
-    username: name,
-  });
+  const useCase = makeUserRepository();
 
-  reply
-    .send({
-      user,
-    })
-    .status(201);
+  try {
+    const user = await useCase.execute({
+      email,
+      password: await hash(password, 8),
+      username: name,
+    });
+
+    console.log(user);
+
+    return reply
+      .send({
+        user,
+      })
+      .status(201);
+  } catch (error) {
+    if (error instanceof UserAlreadyExistError) {
+      return reply.send({
+        message: error.message,
+      });
+    }
+  }
 }
