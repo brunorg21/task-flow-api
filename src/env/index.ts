@@ -5,6 +5,7 @@ const envSchmea = z.object({
   NODE_ENV: z.enum(["dev", "production"]),
   PORT: z.coerce.number(),
   DATABASE_URL: z.string(),
+  SECRET_KEY: z.string(),
 });
 
 const _env = envSchmea.safeParse(process.env);
