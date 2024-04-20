@@ -1,4 +1,4 @@
-import { makeUserRepository } from "@/http/factories/make-user-repository";
+import { makeCreateUserUseCase } from "@/http/factories/make-create-user-use-case";
 import { UserAlreadyExistError } from "@/use-cases/errors/user-already-exist-error";
 import { hash } from "bcrypt";
 import { FastifyReply, FastifyRequest } from "fastify";
@@ -13,25 +13,21 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
 
   const { email, name, password } = createUserRequestBody.parse(req.body);
 
-  const useCase = makeUserRepository();
+  const createUserUseCase = makeCreateUserUseCase();
 
   try {
-    const user = await useCase.execute({
+    const user = await createUserUseCase.execute({
       email,
       password: await hash(password, 8),
       username: name,
     });
 
-    console.log(user);
-
-    return reply
-      .send({
-        user,
-      })
-      .status(201);
+    return reply.status(201).send({
+      user,
+    });
   } catch (error) {
     if (error instanceof UserAlreadyExistError) {
-      return reply.send({
+      return reply.status(400).send({
         message: error.message,
       });
     }
