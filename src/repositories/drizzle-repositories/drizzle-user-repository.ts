@@ -22,11 +22,11 @@ export class DrizzleUserRepository implements UserRepository {
 
     return user[0];
   }
-  save(user: IUser): Promise<void> {
-    throw new Error("Method not implemented.");
+  async save(user: IUser): Promise<void> {
+    await db.update(userSchema).set(user).where(eq(userSchema.id, user.id));
   }
-  delete(id: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async delete(id: string): Promise<void> {
+    await db.delete(userSchema).where(eq(userSchema.id, id));
   }
   async findByEmail(email: string): Promise<IUser | null> {
     const user = await db.query.userSchema.findFirst({
@@ -41,7 +41,17 @@ export class DrizzleUserRepository implements UserRepository {
 
     return user;
   }
-  findById(userId: string): Promise<IUser | null> {
-    throw new Error("Method not implemented.");
+  async findById(userId: string): Promise<IUser | null> {
+    const user = await db.query.userSchema.findFirst({
+      where(fields, { eq }) {
+        return eq(fields.id, userId);
+      },
+    });
+
+    if (!user) {
+      return null;
+    }
+
+    return user;
   }
 }
