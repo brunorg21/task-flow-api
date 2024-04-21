@@ -23,7 +23,8 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
     });
 
     return reply.status(201).send({
-      user,
+      ...user,
+      password: undefined,
     });
   } catch (error) {
     if (error instanceof UserAlreadyExistError) {
