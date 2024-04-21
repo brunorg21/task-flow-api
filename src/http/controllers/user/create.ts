@@ -6,12 +6,12 @@ import { z } from "zod";
 
 export async function create(req: FastifyRequest, reply: FastifyReply) {
   const createUserRequestBody = z.object({
-    name: z.string(),
+    username: z.string(),
     email: z.string().email(),
     password: z.string(),
   });
 
-  const { email, name, password } = createUserRequestBody.parse(req.body);
+  const { email, username, password } = createUserRequestBody.parse(req.body);
 
   const createUserUseCase = makeCreateUserUseCase();
 
@@ -19,7 +19,7 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
     const user = await createUserUseCase.execute({
       email,
       password: await hash(password, 8),
-      username: name,
+      username,
     });
 
     return reply.status(201).send({
