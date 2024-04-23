@@ -25,6 +25,7 @@ describe("find tasks by status use case", () => {
       organizationId: null,
       title: "Task 1",
       userId: "user-id",
+      status: "Em andamento",
     });
     await inMemoryTaskRepository.create({
       assignedId: "assigned-id",
@@ -33,6 +34,7 @@ describe("find tasks by status use case", () => {
       organizationId: null,
       title: "Task 2",
       userId: "user-id",
+      status: "Em andamento",
     });
 
     const tasks = await sut.execute("Em andamento");
