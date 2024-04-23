@@ -7,7 +7,6 @@ export interface ITask {
   assignedId: string | null;
   status?: "Em andamento" | "Concluída" | "Cancelada";
   attachments: string[] | null;
-  noteId: string | null;
 }
 
 export type ITaskCreate = Omit<ITask, "id">;
