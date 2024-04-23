@@ -2,7 +2,7 @@ import { InMemoryNoteRepository } from "@/repositories/in-memory-repositories/in
 import { beforeEach, describe, expect, it } from "vitest";
 import { DeleteNoteUseCase } from "./delete";
 import { makeNote } from "../factories/make-note";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 
 let inMemoryNoteRepository: InMemoryNoteRepository;
 

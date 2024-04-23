@@ -2,7 +2,7 @@ import { InMemoryOrganizationRepository } from "@/repositories/in-memory-reposit
 import { beforeEach, describe, expect, it } from "vitest";
 import { DeleteOrganizationUseCase } from "./delete";
 import { makeOrganization } from "../factories/make-organization";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 
 let inMemoryOrganizationRepository: InMemoryOrganizationRepository;
 

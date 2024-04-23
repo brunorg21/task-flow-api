@@ -1,6 +1,6 @@
 import { IOrganization } from "@/models/organization-model";
 import { OrganizationRepository } from "@/repositories/organization-repository";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 
 interface EditOrganizationUseCaseRequest {
   organizationId: string;
