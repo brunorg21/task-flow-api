@@ -1,5 +1,5 @@
 import { makeCreateUserUseCase } from "@/http/factories/make-create-user-use-case";
-import { UserAlreadyExistError } from "@/use-cases/errors/user-already-exist-error";
+import { UserAlreadyExistError } from "@/use-cases/@errors/user-already-exist-error";
 import { hash } from "bcrypt";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";

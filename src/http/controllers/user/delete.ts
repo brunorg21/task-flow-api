@@ -1,5 +1,5 @@
 import { makeDeleteUserUseCase } from "@/http/factories/make-delete-user-use-case";
-import { ResourceNotFoundError } from "@/use-cases/errors/resource-not-found-error";
+import { ResourceNotFoundError } from "@/use-cases/@errors/resource-not-found-error";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 

@@ -1,5 +1,5 @@
 import { makeProfileUseCase } from "@/http/factories/make-profile-use-case";
-import { InvalidCredentialsError } from "@/use-cases/errors/invalid-credentials";
+import { InvalidCredentialsError } from "@/use-cases/@errors/invalid-credentials";
 import { FastifyReply, FastifyRequest } from "fastify";
 
 export async function profile(req: FastifyRequest, reply: FastifyReply) {

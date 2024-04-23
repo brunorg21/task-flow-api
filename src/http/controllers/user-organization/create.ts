@@ -1,5 +1,5 @@
 import { makeCreateUserOrganizationUseCase } from "@/http/factories/make-create-user-organization-use-case";
-import { ResourceNotFoundError } from "@/use-cases/errors/resource-not-found-error";
+import { ResourceNotFoundError } from "@/use-cases/@errors/resource-not-found-error";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 

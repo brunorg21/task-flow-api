@@ -1,6 +1,6 @@
 import { makeEditUserUseCase } from "@/http/factories/make-edit-user-use-case";
-import { InvalidCredentialsError } from "@/use-cases/errors/invalid-credentials";
-import { ResourceNotFoundError } from "@/use-cases/errors/resource-not-found-error";
+import { InvalidCredentialsError } from "@/use-cases/@errors/invalid-credentials";
+import { ResourceNotFoundError } from "@/use-cases/@errors/resource-not-found-error";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
