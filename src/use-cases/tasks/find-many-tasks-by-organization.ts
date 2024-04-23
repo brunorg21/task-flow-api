@@ -1,5 +1,5 @@
 import { TaskRepository } from "@/repositories/task-repository";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 
 export class FindManyTasksByOrganizationUseCase {
   constructor(private taskRepository: TaskRepository) {}

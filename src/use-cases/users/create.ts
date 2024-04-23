@@ -1,6 +1,6 @@
 import { IUserCreate } from "@/models/user-model";
 import { UserRepository } from "@/repositories/user-repository";
-import { UserAlreadyExistError } from "../errors/user-already-exist-error";
+import { UserAlreadyExistError } from "../@errors/user-already-exist-error";
 
 export class CreateUserUseCase {
   constructor(private usersRepository: UserRepository) {}

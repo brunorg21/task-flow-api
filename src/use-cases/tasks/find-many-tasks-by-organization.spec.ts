@@ -1,7 +1,7 @@
 import { InMemoryTaskRepository } from "@/repositories/in-memory-repositories/in-memory-task-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 import { FindManyTasksByOrganizationUseCase } from "./find-many-tasks-by-organization";
 import { InMemoryAttachmentRepository } from "@/repositories/in-memory-repositories/in-memory-attachment-repository";
 
@@ -22,7 +22,6 @@ describe("find many tasks by organization use case", () => {
       assignedId: "assigned-id",
       attachments: null,
       createdAt: new Date(),
-      noteId: null,
       organizationId: "org-id",
       title: "Task 1",
       userId: "user-id",
@@ -31,7 +30,6 @@ describe("find many tasks by organization use case", () => {
       assignedId: "assigned-id",
       attachments: null,
       createdAt: new Date(),
-      noteId: null,
       organizationId: "org-id",
       title: "Task 2",
       userId: "user-id",

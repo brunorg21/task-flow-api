@@ -1,5 +1,5 @@
 import { TaskRepository } from "@/repositories/task-repository";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 import { AttachmentRepository } from "@/repositories/attachment-repository";
 import { IAttachment } from "@/models/attachment-model";
 
@@ -32,9 +32,11 @@ export class EditTaskUseCase {
       const newAttachments = await Promise.all(
         attachments.map(async (attachmentId) => {
           return {
-            attachmentId,
+            id: attachmentId,
             createdAt: new Date(),
             taskId: task.id,
+            fileName: "teste",
+            url: "teste",
           };
         })
       );

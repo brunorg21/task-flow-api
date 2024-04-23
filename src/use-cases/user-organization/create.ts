@@ -1,6 +1,6 @@
 import { UserOrganizationRepository } from "@/repositories/user-organization-repository";
 import { UserRepository } from "@/repositories/user-repository";
-import { InvalidCredentialsError } from "../errors/invalid-credentials";
+import { InvalidCredentialsError } from "../@errors/invalid-credentials";
 
 export class CreateUserOrganizationUseCase {
   constructor(

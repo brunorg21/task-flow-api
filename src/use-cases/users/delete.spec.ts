@@ -2,7 +2,7 @@ import { InMemoryUserRepository } from "@/repositories/in-memory-repositories/in
 import { beforeEach, describe, expect, it } from "vitest";
 import { DeleteUserUseCase } from "./delete";
 import { makeUser } from "../factories/make-user";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 
 let inMemoryUserRepository: InMemoryUserRepository;
 

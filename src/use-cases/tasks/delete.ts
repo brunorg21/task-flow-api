@@ -1,5 +1,5 @@
 import { TaskRepository } from "@/repositories/task-repository";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 import { AttachmentRepository } from "@/repositories/attachment-repository";
 
 export class DeleteTaskUseCase {

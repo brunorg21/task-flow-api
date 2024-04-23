@@ -1,5 +1,5 @@
 import { UserRepository } from "@/repositories/user-repository";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 import { hash } from "bcrypt";
 import { IUser } from "@/models/user-model";
 

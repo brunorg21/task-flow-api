@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { CreateUserOrganizationUseCase } from "./create";
 import { hash } from "bcrypt";
 import { InMemoryOrganizationRepository } from "@/repositories/in-memory-repositories/in-memory-organization-repository";
-import { InvalidCredentialsError } from "../errors/invalid-credentials";
+import { InvalidCredentialsError } from "../@errors/invalid-credentials";
 
 let inMemoryUserOrganizationRepository: InMemoryUserOrganizationRepository;
 let inMemoryUserRepository: InMemoryUserRepository;

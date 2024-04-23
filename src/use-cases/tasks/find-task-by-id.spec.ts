@@ -2,7 +2,7 @@ import { InMemoryTaskRepository } from "@/repositories/in-memory-repositories/in
 import { beforeEach, describe, expect, it } from "vitest";
 
 import { FindTaskByIdUseCase } from "./find-task-by-id";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 import { InMemoryAttachmentRepository } from "@/repositories/in-memory-repositories/in-memory-attachment-repository";
 
 let inMemoryTaskRepository: InMemoryTaskRepository;
@@ -18,17 +18,16 @@ beforeEach(() => {
 
 describe("find task by id use case", () => {
   it("should be able to find task", async () => {
-    const taskCreated = await inMemoryTaskRepository.create({
+    inMemoryTaskRepository.create({
       assignedId: "assigned-id",
       attachments: null,
       createdAt: new Date(),
-      noteId: null,
       organizationId: null,
       title: "Task 1",
       userId: "user-id",
     });
 
-    const task = await sut.execute(taskCreated.id);
+    const task = await sut.execute(inMemoryTaskRepository.items[0].id);
 
     expect(task.title).toEqual("Task 1");
   });
