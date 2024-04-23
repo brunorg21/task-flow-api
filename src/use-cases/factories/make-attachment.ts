@@ -1,15 +1,19 @@
 import { IAttachmentCreate } from "@/models/attachment-model";
-import { AttachmentRepository } from "@/repositories/attachment-repository";
+import { InMemoryAttachmentRepository } from "@/repositories/in-memory-repositories/in-memory-attachment-repository";
 
 export async function makeAttachment(
-  attachmentRepository: AttachmentRepository,
+  attachmentRepository: InMemoryAttachmentRepository,
   data?: IAttachmentCreate
 ) {
-  const attachment = await attachmentRepository.create({
-    createdAt: data?.createdAt ?? new Date(),
-    attachmentId: data?.attachmentId ?? "1",
-    taskId: data?.taskId ?? "task-1",
-  });
+  const attachment = await attachmentRepository.createMany([
+    {
+      createdAt: data?.createdAt ?? new Date(),
+      fileName: data?.fileName ?? "teste",
+      url: data?.url ?? "teste",
+      taskId: data?.taskId ?? null,
+      noteId: data?.noteId ?? null,
+    },
+  ]);
 
   return attachment;
 }

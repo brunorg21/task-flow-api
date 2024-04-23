@@ -25,19 +25,25 @@ describe("edit task use case", () => {
     const task = await makeTask(inMemoryTaskRepository);
 
     await makeAttachment(inMemoryAttachmentRepository, {
-      attachmentId: "1",
       createdAt: new Date(),
       taskId: task.id,
+      fileName: "teste1",
+      url: "teste1",
+      noteId: null,
     });
     await makeAttachment(inMemoryAttachmentRepository, {
-      attachmentId: "2",
       createdAt: new Date(),
       taskId: task.id,
+      fileName: "teste2",
+      url: "teste2",
+      noteId: null,
     });
     await makeAttachment(inMemoryAttachmentRepository, {
-      attachmentId: "4",
       createdAt: new Date(),
       taskId: task.id,
+      fileName: "teste2",
+      url: "teste2",
+      noteId: null,
     });
 
     await sut.execute({
@@ -56,13 +62,13 @@ describe("edit task use case", () => {
     ]);
     expect(inMemoryAttachmentRepository.items).toEqual([
       expect.objectContaining({
-        attachmentId: "1",
+        id: "1",
       }),
       expect.objectContaining({
-        attachmentId: "3",
+        id: "3",
       }),
       expect.objectContaining({
-        attachmentId: "5",
+        id: "5",
       }),
     ]);
   });

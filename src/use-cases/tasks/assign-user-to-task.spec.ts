@@ -27,18 +27,17 @@ describe("create user use case", () => {
       username: "bruno",
     });
 
-    const task = await inMemoryTaskRepository.create({
+    await inMemoryTaskRepository.create({
       assignedId: null,
       attachments: null,
       createdAt: new Date(),
-      noteId: null,
       organizationId: null,
       title: "Task 1",
       userId: "user-id",
     });
 
     const { assignTask } = await sut.execute({
-      taskId: task.id,
+      taskId: inMemoryTaskRepository.items[0].id,
       userId: user.id,
     });
 

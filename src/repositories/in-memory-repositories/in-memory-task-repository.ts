@@ -9,22 +9,23 @@ export class InMemoryTaskRepository implements TaskRepository {
 
   constructor(private attachmentRepository: AttachmentRepository) {}
 
-  async create(data: ITaskCreate): Promise<ITask> {
+  async create(data: ITaskCreate): Promise<void> {
     const task = {
       id: randomUUID(),
       assignedId: data.assignedId,
       attachments: data.attachments,
       createdAt: data.createdAt,
-      noteId: data.noteId,
       organizationId: data.organizationId,
-      status: "Em andamento",
+      status: data.status,
       title: data.title,
       userId: data.userId,
     } as ITask;
 
-    this.items.push(task);
+    if (data.attachments) {
+      const attachments = this.attachmentRepository.findMany(data.attachments);
+    }
 
-    return task;
+    this.items.push(task);
   }
   async findById(taskId: string): Promise<ITask | null> {
     const task = this.items.find((task) => task.id === taskId);
@@ -90,8 +91,6 @@ export class InMemoryTaskRepository implements TaskRepository {
     const itemIndex = this.items.findIndex((item) => item.id === id);
 
     this.items.splice(itemIndex, 1);
-
-    this.attachmentRepository.deleteManyByTaskId(id);
   }
 
   async save(task: ITask): Promise<void> {
