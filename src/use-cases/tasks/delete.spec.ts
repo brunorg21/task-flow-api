@@ -16,30 +16,15 @@ beforeEach(() => {
     inMemoryAttachmentRepository
   );
 
-  sut = new DeleteTaskUseCase(inMemoryTaskRepository);
+  sut = new DeleteTaskUseCase(
+    inMemoryTaskRepository,
+    inMemoryAttachmentRepository
+  );
 });
 
 describe("delete task use case", () => {
   it("should be able to delete an task", async () => {
     const newTask = await makeTask(inMemoryTaskRepository);
-    await makeAttachment(inMemoryAttachmentRepository, {
-      fileName: "teste",
-      url: "teste",
-      createdAt: new Date(),
-      taskId: newTask.id,
-    });
-    await makeAttachment(inMemoryAttachmentRepository, {
-      fileName: "teste",
-      url: "teste",
-      createdAt: new Date(),
-      taskId: newTask.id,
-    });
-    await makeAttachment(inMemoryAttachmentRepository, {
-      fileName: "teste",
-      url: "teste",
-      createdAt: new Date(),
-      taskId: newTask.id,
-    });
 
     await sut.execute(newTask.id);
 
