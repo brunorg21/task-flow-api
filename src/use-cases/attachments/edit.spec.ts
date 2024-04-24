@@ -27,6 +27,6 @@ describe("edit attachment use case", () => {
 
     await sut.execute(attachment);
 
-    expect(attachment[0].taskId).toEqual(expect.any(String));
+    expect(attachment[0].taskId).toEqual("1");
   });
 });

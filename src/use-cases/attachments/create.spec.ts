@@ -13,14 +13,16 @@ beforeEach(() => {
 
 describe("create attachment use case", () => {
   it("should be able to create an attachment", async () => {
-    const attachment = await sut.execute({
-      createdAt: new Date(),
-      fileName: "arquivo 1",
-      noteId: null,
-      taskId: null,
-      url: "teste",
-    });
+    const attachment = await sut.execute([
+      {
+        fileName: "arquivo 1",
+        noteId: null,
+        taskId: null,
+        url: "teste",
+        createdAt: new Date(),
+      },
+    ]);
 
-    expect(attachment.id).toEqual(expect.any(String));
+    expect(attachment[0].id).toEqual(expect.any(String));
   });
 });
