@@ -3,6 +3,7 @@ import { TaskRepository } from "../task-repository";
 import { randomUUID } from "crypto";
 import dayjs from "dayjs";
 import { AttachmentRepository } from "../attachment-repository";
+import { IAttachment } from "@/models/attachment-model";
 
 export class InMemoryTaskRepository implements TaskRepository {
   public items: ITask[] = [];
@@ -22,7 +23,22 @@ export class InMemoryTaskRepository implements TaskRepository {
     } as ITask;
 
     if (data.attachments) {
-      const attachments = this.attachmentRepository.findMany(data.attachments);
+      const attachments = await this.attachmentRepository.findMany(
+        data.attachments
+      );
+
+      const newAttachments = attachments.map((attachment) => {
+        return {
+          id: attachment.id,
+          fileName: attachment.fileName,
+          url: attachment.url,
+          taskId: task.id,
+          noteId: attachment.noteId,
+          createdAt: attachment.createdAt,
+        } as IAttachment;
+      });
+
+      await this.attachmentRepository.save(newAttachments);
     }
 
     this.items.push(task);
