@@ -2,17 +2,46 @@ import { ITaskCreate, ITask } from "@/models/task-model";
 import { TaskRepository } from "../task-repository";
 import { db } from "@/db/connection";
 import { taskSchema } from "@/db/schemas";
+import { AttachmentRepository } from "../attachment-repository";
+import { IAttachment } from "@/models/attachment-model";
 
 export class DrizzleTaskRepository implements TaskRepository {
+  constructor(private attachmentRepository: AttachmentRepository) {}
+
   async create(data: ITaskCreate): Promise<void> {
-    await db.insert(taskSchema).values({
-      title: data.title,
-      userId: data.userId,
-      assignedId: data.assignedId,
-      createdAt: new Date(),
-      status: data.status,
-      organizationId: data.organizationId,
-    });
+    const task = await db
+      .insert(taskSchema)
+      .values({
+        title: data.title,
+        userId: data.userId,
+        assignedId: data.assignedId,
+        createdAt: new Date(),
+        status: data.status,
+        organizationId: data.organizationId,
+      })
+      .returning({
+        id: taskSchema.id,
+      });
+
+    if (data.attachments) {
+      const attachments = await this.attachmentRepository.findMany(
+        data.attachments
+      );
+
+      const newAttachments = attachments.map((attachment) => {
+        return {
+          id: attachment.id,
+          fileName: attachment.fileName,
+          url: attachment.url,
+          taskId: task[0].id,
+          noteId: attachment.noteId,
+          createdAt: attachment.createdAt,
+          type: attachment.type,
+        } as IAttachment;
+      });
+
+      await this.attachmentRepository.save(newAttachments);
+    }
   }
   save(task: ITask): Promise<void> {
     throw new Error("Method not implemented.");
