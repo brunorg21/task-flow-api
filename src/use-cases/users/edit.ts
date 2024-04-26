@@ -2,12 +2,13 @@ import { UserRepository } from "@/repositories/user-repository";
 import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 import { hash } from "bcrypt";
 import { IUser } from "@/models/user-model";
+import { UserAlreadyExistError } from "../@errors/user-already-exist-error";
 
 interface EditUserUseCaseRequest {
   userId: string;
-  username: string | null;
-  email: string | null;
-  password: string | null;
+  username: string;
+  email: string;
+  password: string;
 }
 interface EditUserUseCaseResponse {
   user: IUser;
@@ -26,6 +27,12 @@ export class EditUserUseCase {
 
     if (!user) {
       throw new ResourceNotFoundError();
+    }
+
+    const userWithSameEmail = await this.userRepository.findByEmail(email);
+
+    if (userWithSameEmail) {
+      throw new UserAlreadyExistError();
     }
 
     user.username = username ?? user.username;
