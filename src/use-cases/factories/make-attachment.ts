@@ -12,6 +12,7 @@ export async function makeAttachment(
       url: data?.url ?? "teste",
       taskId: data?.taskId ?? null,
       noteId: data?.noteId ?? null,
+      type: ".jpg",
     },
   ]);
 
