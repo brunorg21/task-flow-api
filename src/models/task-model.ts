@@ -1,7 +1,7 @@
 export interface ITask {
   id: string;
   title: string;
-  createdAt: Date;
+  createdAt?: Date;
   userId: string;
   organizationId: string | null;
   assignedId: string | null;
