@@ -1,6 +1,7 @@
 import { makeEditUserUseCase } from "@/http/factories/make-edit-user-use-case";
 import { InvalidCredentialsError } from "@/use-cases/@errors/invalid-credentials";
 import { ResourceNotFoundError } from "@/use-cases/@errors/resource-not-found-error";
+import { UserAlreadyExistError } from "@/use-cases/@errors/user-already-exist-error";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
@@ -30,6 +31,11 @@ export async function edit(req: FastifyRequest, reply: FastifyReply) {
     };
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
+      return reply.status(400).send({
+        message: error.message,
+      });
+    }
+    if (error instanceof UserAlreadyExistError) {
       return reply.status(400).send({
         message: error.message,
       });
