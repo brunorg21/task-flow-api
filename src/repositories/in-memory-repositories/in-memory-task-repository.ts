@@ -35,6 +35,7 @@ export class InMemoryTaskRepository implements TaskRepository {
           taskId: task.id,
           noteId: attachment.noteId,
           createdAt: attachment.createdAt,
+          type: attachment.type,
         } as IAttachment;
       });
 

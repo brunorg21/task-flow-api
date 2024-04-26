@@ -14,6 +14,7 @@ export class InMemoryAttachmentRepository implements AttachmentRepository {
         fileName: attachment.fileName,
         noteId: attachment.noteId,
         url: attachment.url,
+        type: attachment.type,
       };
     });
 
@@ -42,9 +43,11 @@ export class InMemoryAttachmentRepository implements AttachmentRepository {
   }
 
   async findMany(attachmentIds: string[]): Promise<IAttachment[]> {
-    return this.items.filter((attachment) =>
+    const attachments = this.items.filter((attachment) =>
       attachmentIds.includes(attachment.id)
     );
+
+    return attachments;
   }
 
   async deleteMany(attachmentIds: string[]): Promise<void> {
