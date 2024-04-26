@@ -10,10 +10,10 @@ export const attachmentSchema = pgTable("attachments", {
     .primaryKey(),
   taskId: text("taskId").references(() => taskSchema.id),
   noteId: text("authorId").references(() => noteSchema.id),
-  fileName: text("fileName"),
-  url: text("url"),
-  type: text("text"),
-  createdAt: timestamp("createdAt").defaultNow(),
+  fileName: text("fileName").notNull(),
+  url: text("url").notNull(),
+  type: text("text").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
 export const attachmentRelations = relations(attachmentSchema, ({ one }) => ({
