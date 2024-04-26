@@ -20,6 +20,7 @@ describe("deletemany attachment use case", () => {
         url: "teste",
         taskId: null,
         noteId: null,
+        type: ".jpg",
       },
     ]);
 

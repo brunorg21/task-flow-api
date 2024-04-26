@@ -30,6 +30,7 @@ describe("edit task use case", () => {
       fileName: "teste1",
       url: "teste1",
       noteId: null,
+      type: ".jpg",
     });
     await makeAttachment(inMemoryAttachmentRepository, {
       createdAt: new Date(),
@@ -37,6 +38,7 @@ describe("edit task use case", () => {
       fileName: "teste2",
       url: "teste2",
       noteId: null,
+      type: ".jpg",
     });
     await makeAttachment(inMemoryAttachmentRepository, {
       createdAt: new Date(),
@@ -44,6 +46,7 @@ describe("edit task use case", () => {
       fileName: "teste2",
       url: "teste2",
       noteId: null,
+      type: ".jpg",
     });
 
     await sut.execute({

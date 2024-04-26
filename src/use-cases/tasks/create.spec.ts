@@ -25,6 +25,7 @@ describe("create task use case", () => {
       noteId: null,
       taskId: null,
       url: "teste",
+      type: ".jpg",
     });
 
     await sut.execute({

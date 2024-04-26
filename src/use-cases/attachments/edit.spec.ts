@@ -20,6 +20,7 @@ describe("edit attachment use case", () => {
         noteId: null,
         taskId: null,
         url: "teste",
+        type: ".jpg",
       },
     ]);
 

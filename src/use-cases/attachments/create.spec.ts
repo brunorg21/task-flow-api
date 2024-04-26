@@ -20,6 +20,7 @@ describe("create attachment use case", () => {
         taskId: null,
         url: "teste",
         createdAt: new Date(),
+        type: ".jpg",
       },
     ]);
 

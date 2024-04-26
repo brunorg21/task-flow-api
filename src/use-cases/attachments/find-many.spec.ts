@@ -21,6 +21,7 @@ describe("find many attachment use case", () => {
         noteId: null,
         taskId: null,
         url: "teste",
+        type: ".jpg",
       },
     ]);
 
