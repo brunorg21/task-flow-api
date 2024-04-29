@@ -1,4 +1,5 @@
 import { supabaseClient } from "@/db/supabase/client";
+import { makeCreateAttachmentUseCase } from "@/http/factories/make-create-attachment-use-case";
 import { IAttachmentCreate } from "@/models/attachment-model";
 import { FastifyRequest, FastifyReply } from "fastify";
 
@@ -25,7 +26,19 @@ export async function upload(req: FastifyRequest, reply: FastifyReply) {
     }
   }
 
-  console.log(attachments);
+  try {
+    const createAttachment = makeCreateAttachmentUseCase();
 
-  return reply.send();
+    if (attachments) {
+      const createdAttachments = await createAttachment.execute(attachments);
+
+      return reply.status(201).send({
+        createdAttachments,
+      });
+    }
+  } catch (error) {
+    return reply.status(201).send({
+      message: "Erro ao criar anexo.",
+    });
+  }
 }
