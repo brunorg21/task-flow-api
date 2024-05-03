@@ -10,6 +10,7 @@ let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
 let sut: FindTaskByDate;
 
 beforeEach(() => {
+  inMemoryAttachmentRepository = new InMemoryAttachmentRepository();
   inMemoryTaskRepository = new InMemoryTaskRepository(
     inMemoryAttachmentRepository
   );

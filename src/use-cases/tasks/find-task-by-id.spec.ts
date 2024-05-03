@@ -13,7 +13,10 @@ beforeEach(() => {
   inMemoryTaskRepository = new InMemoryTaskRepository(
     inMemoryAttachmentRepository
   );
-  sut = new FindTaskByIdUseCase(inMemoryTaskRepository);
+  sut = new FindTaskByIdUseCase(
+    inMemoryTaskRepository,
+    inMemoryAttachmentRepository
+  );
 });
 
 describe("find task by id use case", () => {

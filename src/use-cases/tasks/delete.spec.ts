@@ -4,7 +4,6 @@ import { DeleteTaskUseCase } from "./delete";
 import { makeTask } from "../factories/make-task";
 import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 import { InMemoryAttachmentRepository } from "@/repositories/in-memory-repositories/in-memory-attachment-repository";
-import { makeAttachment } from "../factories/make-attachment";
 
 let inMemoryTaskRepository: InMemoryTaskRepository;
 let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
