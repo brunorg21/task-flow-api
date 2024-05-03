@@ -30,7 +30,13 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
     if (error instanceof UserAlreadyExistError) {
       return reply.status(400).send({
         message: error.message,
+        cause: error.cause,
+        name: error.name,
       });
     }
+
+    return reply.status(500).send({
+      message: "Erro interno do servidor.",
+    });
   }
 }

@@ -18,7 +18,13 @@ export async function profile(req: FastifyRequest, reply: FastifyReply) {
     if (error instanceof InvalidCredentialsError) {
       return reply.status(401).send({
         message: error.message,
+        cause: error.cause,
+        name: error.name,
       });
     }
+
+    return reply.status(500).send({
+      message: "Erro interno do servidor.",
+    });
   }
 }
