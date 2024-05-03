@@ -5,10 +5,11 @@ import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 
 interface FindTaskByDateUseCaseRequest {
   date: Date;
+  tasks: ITask[];
 }
 
 interface FindTaskByDateUseCaseResponse {
-  tasks: ITask[];
+  filteredTasks: ITask[];
 }
 
 export class FindTaskByDate {
@@ -16,15 +17,16 @@ export class FindTaskByDate {
 
   async execute({
     date,
+    tasks,
   }: FindTaskByDateUseCaseRequest): Promise<FindTaskByDateUseCaseResponse> {
-    const tasks = await this.taskRepository.findByDate(date);
+    const filteredTasks = await this.taskRepository.findByDate(date, tasks);
 
-    if (!tasks) {
+    if (!filteredTasks) {
       throw new ResourceNotFoundError();
     }
 
     return {
-      tasks,
+      filteredTasks,
     };
   }
 }

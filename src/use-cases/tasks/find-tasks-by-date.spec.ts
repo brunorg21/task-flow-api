@@ -22,7 +22,6 @@ describe("find task by date use case", () => {
       assignedId: "assigned-id",
       attachments: null,
       createdAt: new Date(),
-
       organizationId: null,
       title: "Task 1",
       userId: "user-id",
@@ -31,23 +30,27 @@ describe("find task by date use case", () => {
       assignedId: "assigned-id",
       attachments: null,
       createdAt: new Date(),
-
       organizationId: null,
       title: "Task 1",
       userId: "user-id",
     });
 
-    const { tasks } = await sut.execute({
-      date: new Date(),
-    });
+    const tasks = await inMemoryTaskRepository.findManyByUser("user-id");
 
-    expect(tasks).toHaveLength(2);
+    if (tasks) {
+      const { filteredTasks } = await sut.execute({
+        date: new Date(),
+        tasks,
+      });
+      expect(filteredTasks).toHaveLength(2);
+    }
   });
 
   it("should not be able to find tasks if out range date", async () => {
     await expect(async () => {
       await sut.execute({
         date: new Date(),
+        tasks: [],
       });
     }).rejects.toBeInstanceOf(ResourceNotFoundError);
   });

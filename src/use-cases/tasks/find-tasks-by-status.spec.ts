@@ -37,18 +37,21 @@ describe("find tasks by status use case", () => {
       status: "Em andamento",
     });
 
-    const tasks = await sut.execute("Em andamento");
+    const tasks = await inMemoryTaskRepository.findManyByUser("user-id");
 
-    expect(tasks).toHaveLength(2);
-    expect(tasks).toEqual([
-      expect.objectContaining({ status: "Em andamento" }),
-      expect.objectContaining({ status: "Em andamento" }),
-    ]);
+    if (tasks) {
+      const filteredTasks = await sut.execute("Em andamento", tasks);
+      expect(filteredTasks).toHaveLength(2);
+      expect(filteredTasks).toEqual([
+        expect.objectContaining({ status: "Em andamento" }),
+        expect.objectContaining({ status: "Em andamento" }),
+      ]);
+    }
   });
 
   it("should not be able to find tasks by status with wrong status", async () => {
     await expect(async () => {
-      await sut.execute("wrong-status");
+      await sut.execute("wrong-status", []);
     }).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 });
