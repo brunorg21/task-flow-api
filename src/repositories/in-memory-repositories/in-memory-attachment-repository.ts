@@ -55,4 +55,12 @@ export class InMemoryAttachmentRepository implements AttachmentRepository {
       (attachment) => !attachmentIds.includes(attachment.id)
     );
   }
+
+  async findManyByTaskId(taskId: string): Promise<IAttachment[]> {
+    const attachments = this.items.filter(
+      (attachment) => attachment.taskId === taskId
+    );
+
+    return attachments;
+  }
 }
