@@ -1,12 +1,12 @@
 export interface ITask {
   id: string;
   title: string;
-  createdAt?: Date;
+  createdAt?: Date | null;
   userId: string;
   organizationId: string | null;
   assignedId: string | null;
   status?: "Em andamento" | "Concluída" | "Cancelada";
-  attachments: string[] | null;
+  attachments?: string[] | null;
 }
 
 export type ITaskCreate = Omit<ITask, "id">;
