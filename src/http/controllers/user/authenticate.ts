@@ -24,6 +24,7 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
       {
         sign: {
           sub: user.id,
+          expiresIn: "1d",
         },
       }
     );
@@ -32,7 +33,13 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
     if (error instanceof InvalidCredentialsError) {
       return reply.status(400).send({
         message: error.message,
+        cause: error.cause,
+        name: error.name,
       });
     }
+
+    return reply.status(500).send({
+      message: "Erro interno do servidor.",
+    });
   }
 }
