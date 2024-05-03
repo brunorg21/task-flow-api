@@ -12,7 +12,7 @@ const app = fastify();
 app.register(fastifyJwt, {
   secret: env.SECRET_KEY,
   sign: {
-    expiresIn: "2d",
+    expiresIn: "1d",
   },
 });
 
