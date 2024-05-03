@@ -5,4 +5,5 @@ export interface AttachmentRepository {
   save(attachments: IAttachment[]): Promise<void>;
   findMany(attachmentIds: string[]): Promise<IAttachment[]>;
   deleteMany(attachmentIds: string[]): Promise<void>;
+  findManyByTaskId(taskId: string): Promise<IAttachment[]>;
 }

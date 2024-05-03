@@ -55,4 +55,14 @@ export class DrizzleAttachmentRepository implements AttachmentRepository {
       .delete(attachmentSchema)
       .where(inArray(attachmentSchema.id, attachmentIds));
   }
+
+  async findManyByTaskId(taskId: string): Promise<IAttachment[]> {
+    const attachments = await db.query.attachmentSchema.findMany({
+      where(fields, { eq }) {
+        return eq(fields.taskId, taskId);
+      },
+    });
+
+    return attachments;
+  }
 }
