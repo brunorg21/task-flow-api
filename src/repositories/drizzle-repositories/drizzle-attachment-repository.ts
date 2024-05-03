@@ -3,6 +3,7 @@ import { AttachmentRepository } from "../attachment-repository";
 import { db } from "@/db/connection";
 import { attachmentSchema } from "@/db/schemas";
 import { eq, inArray } from "drizzle-orm";
+import { supabaseClient } from "@/db/supabase/client";
 
 export class DrizzleAttachmentRepository implements AttachmentRepository {
   async createMany(data: IAttachmentCreate[]): Promise<IAttachment[]> {
@@ -51,6 +52,17 @@ export class DrizzleAttachmentRepository implements AttachmentRepository {
   }
 
   async deleteMany(attachmentIds: string[]): Promise<void> {
+    const attachments = await this.findMany(attachmentIds);
+
+    await Promise.all(
+      attachments.map(
+        async (attachment) =>
+          await supabaseClient.storage
+            .from("attachments")
+            .remove([attachment.fileName])
+      )
+    );
+
     await db
       .delete(attachmentSchema)
       .where(inArray(attachmentSchema.id, attachmentIds));
