@@ -7,7 +7,7 @@ export interface TaskRepository {
   findById(taskId: string): Promise<ITask | null>;
   findManyByUser(userId: string): Promise<ITask[] | null>;
   findManyByOrganization(organizationId: string): Promise<ITask[] | null>;
-  findByStatus(status: string): Promise<ITask[] | null>;
-  findByDate(date: Date): Promise<ITask[] | null>;
+  findByStatus(status: string, tasks: ITask[]): Promise<ITask[] | null>;
+  findByDate(date: Date, tasks: ITask[]): Promise<ITask[] | null>;
   assignUserToTask(userId: string, task: ITask): Promise<ITask>;
 }

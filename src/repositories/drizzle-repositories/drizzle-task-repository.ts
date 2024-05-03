@@ -4,6 +4,8 @@ import { db } from "@/db/connection";
 import { taskSchema } from "@/db/schemas";
 import { AttachmentRepository } from "../attachment-repository";
 import { IAttachment } from "@/models/attachment-model";
+import { eq } from "drizzle-orm";
+import dayjs from "dayjs";
 
 export class DrizzleTaskRepository implements TaskRepository {
   constructor(private attachmentRepository: AttachmentRepository) {}
@@ -43,28 +45,93 @@ export class DrizzleTaskRepository implements TaskRepository {
       await this.attachmentRepository.save(newAttachments);
     }
   }
-  save(task: ITask): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  async save(task: ITask): Promise<void> {
+    await db.update(taskSchema).set(task).where(eq(taskSchema.id, task.id));
   }
-  delete(id: string): Promise<void> {
-    throw new Error("Method not implemented.");
+
+  async delete(id: string): Promise<void> {
+    await db.delete(taskSchema).where(eq(taskSchema.id, id));
   }
-  findById(taskId: string): Promise<ITask | null> {
-    throw new Error("Method not implemented.");
+
+  async findById(taskId: string): Promise<ITask | null> {
+    const task = await db.query.taskSchema.findFirst({
+      where(fields, { eq }) {
+        return eq(fields.id, taskId);
+      },
+      with: {
+        note: true,
+      },
+    });
+
+    if (!task) {
+      return null;
+    }
+
+    return task;
   }
-  findManyByUser(userId: string): Promise<ITask[] | null> {
-    throw new Error("Method not implemented.");
+
+  async findManyByUser(userId: string): Promise<ITask[] | null> {
+    const tasks = await db.query.taskSchema.findMany({
+      where(fields, { eq }) {
+        return eq(fields.userId, userId);
+      },
+      orderBy: (task, { desc }) => [desc(task.createdAt)],
+    });
+
+    if (!tasks) {
+      return null;
+    }
+
+    return tasks;
   }
-  findManyByOrganization(organizationId: string): Promise<ITask[] | null> {
-    throw new Error("Method not implemented.");
+
+  async findManyByOrganization(
+    organizationId: string
+  ): Promise<ITask[] | null> {
+    const tasks = await db.query.taskSchema.findMany({
+      where(fields, { eq }) {
+        return eq(fields.organizationId, organizationId);
+      },
+    });
+
+    if (!tasks) {
+      return null;
+    }
+
+    return tasks;
   }
-  findByStatus(status: string): Promise<ITask[] | null> {
-    throw new Error("Method not implemented.");
+
+  async findByStatus(status: string, tasks: ITask[]): Promise<ITask[] | null> {
+    const filteredTasks = tasks.filter((task) => task.status?.includes(status));
+
+    if (!filteredTasks) {
+      return null;
+    }
+
+    return filteredTasks;
   }
-  findByDate(date: Date): Promise<ITask[] | null> {
-    throw new Error("Method not implemented.");
+  async findByDate(date: Date, tasks: ITask[]): Promise<ITask[] | null> {
+    const filteredTasks = tasks.filter(
+      (task) =>
+        dayjs(task.createdAt).isBefore(date) ||
+        dayjs(task.createdAt).isSame(date)
+    );
+
+    if (!filteredTasks) {
+      return null;
+    }
+
+    return filteredTasks;
   }
-  assignUserToTask(userId: string, task: ITask): Promise<ITask> {
-    throw new Error("Method not implemented.");
+  async assignUserToTask(userId: string, task: ITask): Promise<ITask> {
+    await db
+      .update(taskSchema)
+      .set({
+        assignedId: userId,
+      })
+      .where(eq(taskSchema.id, task.id));
+
+    return task;
   }
 }

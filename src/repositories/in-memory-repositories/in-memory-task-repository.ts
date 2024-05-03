@@ -88,7 +88,7 @@ export class InMemoryTaskRepository implements TaskRepository {
     const tasks = this.items.filter(
       (task) =>
         dayjs(task.createdAt).isBefore(date) ||
-        dayjs(task.createdAt).isSame(date)
+        (dayjs(task.createdAt).isSame(date) && task.userId)
     );
 
     if (tasks.length === 0) {
