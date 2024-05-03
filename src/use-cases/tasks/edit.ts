@@ -7,7 +7,8 @@ interface EditTaskUseCaseRequest {
   taskId: string;
   title: string;
   status: "Em andamento" | "Concluída" | "Cancelada";
-  attachments: string[];
+  attachments: string[] | null;
+  assignedId: string | null;
 }
 
 export class EditTaskUseCase {
@@ -21,6 +22,7 @@ export class EditTaskUseCase {
     taskId,
     status,
     attachments,
+    assignedId,
   }: EditTaskUseCaseRequest) {
     const task = await this.taskRepository.findById(taskId);
 
@@ -29,17 +31,21 @@ export class EditTaskUseCase {
     }
 
     if (attachments) {
-      const newAttachments = await Promise.all(
-        attachments.map(async (attachmentId) => {
-          return {
-            id: attachmentId,
-            createdAt: new Date(),
-            taskId: task.id,
-            fileName: "teste",
-            url: "teste",
-          };
-        })
+      const currentAttachments = await this.attachmentRepository.findMany(
+        attachments
       );
+
+      const newAttachments = currentAttachments.map((attachment) => {
+        return {
+          id: attachment.id,
+          fileName: attachment.fileName,
+          url: attachment.url,
+          taskId: task.id,
+          noteId: attachment.noteId,
+          createdAt: attachment.createdAt,
+          type: attachment.type,
+        } as IAttachment;
+      });
 
       await this.attachmentRepository.save(newAttachments as IAttachment[]);
     }
@@ -47,6 +53,7 @@ export class EditTaskUseCase {
     task.title = title;
     task.status = status;
     task.attachments = attachments;
+    task.assignedId = assignedId;
 
     await this.taskRepository.save(task);
   }
