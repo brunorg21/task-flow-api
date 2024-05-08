@@ -19,4 +19,16 @@ export class InMemoryUserOrganizationRepository
 
     return userOrganization;
   }
+
+  async findByUser(userId: string): Promise<IUserOrganization | null> {
+    const userOrganization = this.items.find(
+      (userOrganization) => userOrganization.userId === userId
+    );
+
+    if (!userOrganization) {
+      return null;
+    }
+
+    return userOrganization;
+  }
 }
