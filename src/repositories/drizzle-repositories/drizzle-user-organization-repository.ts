@@ -20,4 +20,18 @@ export class DrizzleUserOrganizationRepository
 
     return createdUserOrganization[0];
   }
+
+  async findByUser(userId: string): Promise<IUserOrganization | null> {
+    const userOrganization = await db.query.userOrganization.findFirst({
+      where(fields, { eq }) {
+        return eq(fields.userId, userId);
+      },
+    });
+
+    if (!userOrganization) {
+      return null;
+    }
+
+    return userOrganization;
+  }
 }
