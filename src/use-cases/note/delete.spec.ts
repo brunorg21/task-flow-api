@@ -3,13 +3,16 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { DeleteNoteUseCase } from "./delete";
 import { makeNote } from "../factories/make-note";
 import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
+import { InMemoryAttachmentRepository } from "@/repositories/in-memory-repositories/in-memory-attachment-repository";
 
 let inMemoryNoteRepository: InMemoryNoteRepository;
-
+let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
 let sut: DeleteNoteUseCase;
 
 beforeEach(() => {
-  inMemoryNoteRepository = new InMemoryNoteRepository();
+  inMemoryNoteRepository = new InMemoryNoteRepository(
+    inMemoryAttachmentRepository
+  );
   sut = new DeleteNoteUseCase(inMemoryNoteRepository);
 });
 

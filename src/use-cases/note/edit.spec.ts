@@ -2,12 +2,16 @@ import { InMemoryNoteRepository } from "@/repositories/in-memory-repositories/in
 import { beforeEach, describe, expect, it } from "vitest";
 import { EditNoteUseCase } from "./edit";
 import { makeNote } from "../factories/make-note";
+import { InMemoryAttachmentRepository } from "@/repositories/in-memory-repositories/in-memory-attachment-repository";
 
 let inMemoryNoteRepository: InMemoryNoteRepository;
+let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
 let sut: EditNoteUseCase;
 
 beforeEach(() => {
-  inMemoryNoteRepository = new InMemoryNoteRepository();
+  inMemoryNoteRepository = new InMemoryNoteRepository(
+    inMemoryAttachmentRepository
+  );
   sut = new EditNoteUseCase(inMemoryNoteRepository);
 });
 
