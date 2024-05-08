@@ -16,11 +16,7 @@ app.register(fastifyJwt, {
   },
 });
 
-app.register(fastifyMultipart, {
-  limits: {
-    fileSize: 5000000,
-  },
-});
+app.register(fastifyMultipart);
 
 //Routes
 app.register(userRoutes);
