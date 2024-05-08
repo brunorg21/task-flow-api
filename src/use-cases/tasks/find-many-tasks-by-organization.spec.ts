@@ -35,18 +35,18 @@ describe("find many tasks by organization use case", () => {
       userId: "user-id",
     });
 
-    const tasks = await sut.execute("org-id");
+    const tasks = await sut.execute("org-id", "Em andamento", null);
 
     expect(tasks).toHaveLength(2);
     expect(tasks).toEqual([
-      expect.objectContaining({ organizationId: "org-id" }),
-      expect.objectContaining({ organizationId: "org-id" }),
+      expect.objectContaining({
+        organizationId: "org-id",
+        status: "Em andamento",
+      }),
+      expect.objectContaining({
+        organizationId: "org-id",
+        status: "Em andamento",
+      }),
     ]);
-  });
-
-  it("should not be able to find many task by organization with wrong id", async () => {
-    await expect(async () => {
-      await sut.execute("wrong-id");
-    }).rejects.toBeInstanceOf(ResourceNotFoundError);
   });
 });

@@ -1,17 +1,18 @@
 import { TaskRepository } from "@/repositories/task-repository";
-import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 
 export class FindManyTasksByOrganizationUseCase {
   constructor(private taskRepository: TaskRepository) {}
 
-  async execute(organizationId: string) {
+  async execute(
+    organizationId: string,
+    status: "Em andamento" | "Concluída" | "Cancelada" | null,
+    date: Date | null
+  ) {
     const tasks = await this.taskRepository.findManyByOrganization(
-      organizationId
+      organizationId,
+      status,
+      date
     );
-
-    if (!tasks) {
-      throw new ResourceNotFoundError();
-    }
 
     return tasks;
   }
