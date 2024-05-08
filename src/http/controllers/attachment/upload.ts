@@ -11,13 +11,14 @@ export async function upload(req: FastifyRequest, reply: FastifyReply) {
       const { data } = await supabaseClient.storage
         .from("attachments")
         .upload(part.filename, await part.toBuffer());
+
       if (data)
         attachments.push({
           fileName: part.filename,
           noteId: null,
           taskId: null,
           type: part.mimetype,
-          url: data?.path!,
+          url: data.path,
         });
     } catch (error) {
       return reply
