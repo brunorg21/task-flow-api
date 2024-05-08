@@ -1,4 +1,4 @@
-import { ITaskCreate, ITask } from "@/models/task-model";
+import { ITaskCreate, ITask, ITaskList } from "@/models/task-model";
 import { TaskRepository } from "../task-repository";
 import { db } from "@/db/connection";
 import { taskSchema } from "@/db/schemas";
@@ -25,7 +25,7 @@ export class DrizzleTaskRepository implements TaskRepository {
         id: taskSchema.id,
       });
 
-    if (data.attachments) {
+    if (data.attachments?.length !== 0 && data.attachments) {
       const attachments = await this.attachmentRepository.findMany(
         data.attachments
       );
@@ -71,59 +71,113 @@ export class DrizzleTaskRepository implements TaskRepository {
     return task;
   }
 
-  async findManyByUser(userId: string): Promise<ITask[] | null> {
+  async findManyByUser(
+    userId: string,
+    status: "Em andamento" | "Concluída" | "Cancelada" | null,
+    date: Date | null
+  ): Promise<ITaskList[]> {
+    const startDate = dayjs(date)
+      .add(dayjs(date).utcOffset(), "minutes")
+      .startOf("day")
+      .toDate();
+    const endDate = dayjs(date)
+      .add(dayjs(date).utcOffset(), "minutes")
+      .endOf("day")
+      .toDate();
+
     const tasks = await db.query.taskSchema.findMany({
-      where(fields, { eq }) {
-        return eq(fields.userId, userId);
+      where(fields, { eq, and, gte, lte }) {
+        return and(
+          eq(fields.userId, userId),
+          status ? eq(fields.status, status) : undefined,
+          date
+            ? and(
+                gte(fields.createdAt, startDate),
+                lte(fields.createdAt, endDate)
+              )
+            : undefined
+        );
+      },
+      with: {
+        note: true,
       },
       orderBy: (task, { desc }) => [desc(task.createdAt)],
     });
 
-    if (!tasks) {
-      return null;
-    }
+    return await Promise.all(
+      tasks.map(async (task) => {
+        const attachments = await this.attachmentRepository.findManyByTaskId(
+          task.id
+        );
 
-    return tasks;
+        return {
+          id: task.id,
+          assignedId: task.assignedId,
+          organizationId: task.organizationId,
+          title: task.title,
+          userId: task.userId,
+          attachments,
+          createdAt: task.createdAt,
+          status: task.status,
+          note: task.note,
+        } as ITaskList;
+      })
+    );
   }
 
   async findManyByOrganization(
-    organizationId: string
-  ): Promise<ITask[] | null> {
+    organizationId: string,
+    status: "Em andamento" | "Concluída" | "Cancelada" | null,
+    date: Date | null
+  ): Promise<ITaskList[]> {
+    const startDate = dayjs(date)
+      .add(dayjs(date).utcOffset(), "minutes")
+      .startOf("day")
+      .toDate();
+    const endDate = dayjs(date)
+      .add(dayjs(date).utcOffset(), "minutes")
+      .endOf("day")
+      .toDate();
     const tasks = await db.query.taskSchema.findMany({
-      where(fields, { eq }) {
-        return eq(fields.organizationId, organizationId);
+      where(fields, { eq, and, gte, lte }) {
+        return and(
+          eq(fields.organizationId, organizationId),
+          status ? eq(fields.status, status) : undefined,
+          date
+            ? and(
+                gte(fields.createdAt, startDate),
+                lte(fields.createdAt, endDate)
+              )
+            : undefined
+        );
       },
+      with: {
+        note: true,
+      },
+      orderBy: (task, { desc }) => [desc(task.createdAt)],
     });
 
-    if (!tasks) {
-      return null;
-    }
+    return await Promise.all(
+      tasks.map(async (task) => {
+        const attachments = await this.attachmentRepository.findManyByTaskId(
+          task.id
+        );
 
-    return tasks;
-  }
-
-  async findByStatus(status: string, tasks: ITask[]): Promise<ITask[] | null> {
-    const filteredTasks = tasks.filter((task) => task.status?.includes(status));
-
-    if (!filteredTasks) {
-      return null;
-    }
-
-    return filteredTasks;
-  }
-  async findByDate(date: Date, tasks: ITask[]): Promise<ITask[] | null> {
-    const filteredTasks = tasks.filter(
-      (task) =>
-        dayjs(task.createdAt).isBefore(date) ||
-        dayjs(task.createdAt).isSame(date)
+        return {
+          id: task.id,
+          assignedId: task.assignedId,
+          organizationId: task.organizationId,
+          title: task.title,
+          userId: task.userId,
+          attachments,
+          createdAt: task.createdAt,
+          status: task.status,
+          note: task.note,
+        } as ITaskList;
+      })
     );
-
-    if (!filteredTasks) {
-      return null;
-    }
-
-    return filteredTasks;
   }
+
   async assignUserToTask(userId: string, task: ITask): Promise<ITask> {
     await db
       .update(taskSchema)
