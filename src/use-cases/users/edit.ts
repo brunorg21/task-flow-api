@@ -8,7 +8,6 @@ interface EditUserUseCaseRequest {
   userId: string;
   username: string;
   email: string;
-  password: string;
 }
 interface EditUserUseCaseResponse {
   user: IUser;
@@ -21,7 +20,6 @@ export class EditUserUseCase {
     userId,
     email,
     username,
-    password,
   }: EditUserUseCaseRequest): Promise<EditUserUseCaseResponse> {
     const user = await this.userRepository.findById(userId);
 
@@ -37,7 +35,6 @@ export class EditUserUseCase {
 
     user.username = username ?? user.username;
     user.email = email ?? user.email;
-    user.password = await hash(password ?? user.password, 6);
 
     await this.userRepository.save(user);
 

@@ -20,7 +20,6 @@ describe("edit user use case", () => {
     await sut.execute({
       userId: user.id,
       email: "bruno-rafael@email.com",
-      password: null,
       username: "Rafael",
     });
 
@@ -36,7 +35,6 @@ describe("edit user use case", () => {
         await sut.execute({
           userId: "user-1",
           email: "bruno-rafael@email.com",
-          password: null,
           username: "Rafael",
         })
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
