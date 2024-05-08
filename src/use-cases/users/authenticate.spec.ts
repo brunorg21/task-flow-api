@@ -3,13 +3,19 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { AuthenticateUseCase } from "./authenticate";
 import { hash } from "bcrypt";
 import { InvalidCredentialsError } from "../@errors/invalid-credentials";
+import { InMemoryUserOrganizationRepository } from "@/repositories/in-memory-repositories/in-memory-user-organization-repository";
 
 let inMemoryUserRepository: InMemoryUserRepository;
+let inMemoryUserOrganizationRepository: InMemoryUserOrganizationRepository;
 let sut: AuthenticateUseCase;
 
 beforeEach(() => {
+  inMemoryUserOrganizationRepository = new InMemoryUserOrganizationRepository();
   inMemoryUserRepository = new InMemoryUserRepository();
-  sut = new AuthenticateUseCase(inMemoryUserRepository);
+  sut = new AuthenticateUseCase(
+    inMemoryUserRepository,
+    inMemoryUserOrganizationRepository
+  );
 });
 
 describe("authenticate user use case", () => {
@@ -20,7 +26,7 @@ describe("authenticate user use case", () => {
       username: "bruno",
     });
 
-    const { user } = await sut.execute({
+    const user = await sut.execute({
       email: "bruno@email.com",
       password: "12345",
     });

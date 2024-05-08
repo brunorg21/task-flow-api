@@ -2,9 +2,13 @@ import { IAuthenticate } from "@/models/user-model";
 import { UserRepository } from "@/repositories/user-repository";
 import { InvalidCredentialsError } from "../@errors/invalid-credentials";
 import { compare } from "bcrypt";
+import { UserOrganizationRepository } from "@/repositories/user-organization-repository";
 
 export class AuthenticateUseCase {
-  constructor(private userRepository: UserRepository) {}
+  constructor(
+    private userRepository: UserRepository,
+    private userOrganization: UserOrganizationRepository
+  ) {}
 
   async execute({ email, password }: IAuthenticate) {
     const user = await this.userRepository.findByEmail(email);
@@ -19,8 +23,11 @@ export class AuthenticateUseCase {
       throw new InvalidCredentialsError();
     }
 
+    const organization = await this.userOrganization.findByUser(user.id);
+
     return {
-      user,
+      ...user,
+      organizationId: organization?.organizationId,
     };
   }
 }
