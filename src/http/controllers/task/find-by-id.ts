@@ -29,6 +29,7 @@ export async function findById(req: FastifyRequest, reply: FastifyReply) {
 
     return reply.status(500).send({
       message: "Erro interno do servidor.",
+      error,
     });
   }
 }

@@ -30,6 +30,7 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
   } catch (error) {
     return reply.status(400).send({
       message: "Não foi possível criar",
+      error,
     });
   }
 }
