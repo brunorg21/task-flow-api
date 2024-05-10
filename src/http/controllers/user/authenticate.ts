@@ -20,9 +20,7 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
     });
 
     const token = await reply.jwtSign(
-      {
-        organizationId: user.organizationId ?? null,
-      },
+      {},
       {
         sign: {
           sub: user.id,
@@ -42,6 +40,7 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
 
     return reply.status(500).send({
       message: "Erro interno do servidor.",
+      error,
     });
   }
 }
