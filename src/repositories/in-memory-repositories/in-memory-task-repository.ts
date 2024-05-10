@@ -97,7 +97,7 @@ export class InMemoryTaskRepository implements TaskRepository {
     status: "Em andamento" | "Concluída" | "Cancelada" | null,
     date: Date | null
   ): Promise<ITaskList[]> {
-    let tasks: ITask[];
+    let tasks: ITask[] = [];
 
     tasks = this.items.filter((task) =>
       status && date
@@ -115,7 +115,7 @@ export class InMemoryTaskRepository implements TaskRepository {
 
     return await Promise.all(
       tasks.map(async (task) => {
-        const attachments = await this.attachmentRepository.findManyByTaskId(
+        const attachments = await this.attachmentRepository?.findManyByTaskId(
           task.id
         );
 
