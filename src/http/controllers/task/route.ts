@@ -13,7 +13,7 @@ export async function taskRoutes(app: FastifyInstance) {
   app.post("/tasks", create);
   app.get("/tasks/:id", findById);
   app.get("/tasks/user", findManyByUser);
-  app.get("/tasks/organization", findManyByOrganization);
+  app.get("/tasks/organization/:organizationId", findManyByOrganization);
   app.put("/tasks/:id", edit);
   app.delete("/tasks/:id", deleteTask);
 }

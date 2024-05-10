@@ -9,5 +9,5 @@ export async function attachmentRoutes(app: FastifyInstance) {
 
   app.post("/upload", upload);
   app.get("/download/:fileName", download);
-  app.delete("/attachments/:attachmentId/:fileName", deleteAttachment);
+  app.delete("/attachments/:attachmentId", deleteAttachment);
 }
