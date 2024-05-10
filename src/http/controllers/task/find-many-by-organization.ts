@@ -16,12 +16,20 @@ export async function findManyByOrganization(
     date: z.date().nullable().default(null),
   });
 
+  const findManyTaskByOrganizationRequestParamSchema = z.object({
+    organizationId: z.string(),
+  });
+
   try {
     const { status, date } = findManyTaskByOrganizationRequestQuerySchema.parse(
       req.query
     );
+
+    const { organizationId } =
+      findManyTaskByOrganizationRequestParamSchema.parse(req.params);
+
     const tasks = await findManyTaskByOrganization.execute(
-      req.user.organizationId!,
+      organizationId,
       status,
       date
     );
@@ -32,6 +40,7 @@ export async function findManyByOrganization(
   } catch (error) {
     return reply.status(500).send({
       message: "Erro interno do servidor.",
+      error,
     });
   }
 }
