@@ -6,6 +6,7 @@ import { userOrganizationRoutes } from "./http/controllers/user-organization/rou
 import { taskRoutes } from "./http/controllers/task/route";
 import fastifyMultipart from "@fastify/multipart";
 import { attachmentRoutes } from "./http/controllers/attachment/route";
+import { organizationRoutes } from "./http/controllers/organization/route";
 
 const app = fastify();
 
@@ -23,6 +24,7 @@ app.register(userRoutes);
 app.register(userOrganizationRoutes);
 app.register(taskRoutes);
 app.register(attachmentRoutes);
+app.register(organizationRoutes);
 
 app
   .listen({
