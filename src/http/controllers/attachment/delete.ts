@@ -9,32 +9,19 @@ export async function deleteAttachment(
 ) {
   const deleteAttachmentParamSchema = z.object({
     attachmentId: z.string(),
-    fileName: z.string(),
   });
 
-  const { attachmentId, fileName } = deleteAttachmentParamSchema.parse(
-    req.params
-  );
+  const { attachmentId } = deleteAttachmentParamSchema.parse(req.params);
 
   const deleteUseCase = makeDeleteAttachmentUseCase();
   try {
-    const { data, error } = await supabaseClient.storage
-      .from("attachments")
-      .remove([fileName]);
-
-    if (error)
-      return reply.status(400).send({
-        message: error.message,
-      });
-
-    if (data) {
-      await deleteUseCase.execute([attachmentId]);
-    }
+    await deleteUseCase.execute([attachmentId]);
 
     return reply.status(200).send();
   } catch (error) {
     return reply.status(500).send({
       message: "Erro ao deletar arquivo.",
+      error,
     });
   }
 }
