@@ -39,4 +39,14 @@ export class DrizzleNoteRepository implements NoteRepository {
 
     return note;
   }
+
+  async findManyByTask(taskId: string): Promise<INote[]> {
+    const notes = await db.query.noteSchema.findMany({
+      where(fields, { eq }) {
+        return eq(fields.taskId, taskId);
+      },
+    });
+
+    return notes;
+  }
 }

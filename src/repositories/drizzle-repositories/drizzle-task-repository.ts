@@ -10,7 +10,7 @@ import dayjs from "dayjs";
 export class DrizzleTaskRepository implements TaskRepository {
   constructor(private attachmentRepository: AttachmentRepository) {}
 
-  async create(data: ITaskCreate): Promise<void> {
+  async create(data: ITaskCreate): Promise<ITask> {
     const task = await db
       .insert(taskSchema)
       .values({
@@ -23,6 +23,12 @@ export class DrizzleTaskRepository implements TaskRepository {
       })
       .returning({
         id: taskSchema.id,
+        title: taskSchema.title,
+        userId: taskSchema.userId,
+        assignedId: taskSchema.assignedId,
+        createdAt: taskSchema.createdAt,
+        status: taskSchema.status,
+        organizationId: taskSchema.organizationId,
       });
 
     if (data.attachments?.length !== 0 && data.attachments) {
@@ -44,6 +50,8 @@ export class DrizzleTaskRepository implements TaskRepository {
 
       await this.attachmentRepository.save(newAttachments);
     }
+
+    return task[0];
   }
 
   async save(task: ITask): Promise<void> {

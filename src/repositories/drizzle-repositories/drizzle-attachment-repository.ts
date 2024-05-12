@@ -77,4 +77,13 @@ export class DrizzleAttachmentRepository implements AttachmentRepository {
 
     return attachments;
   }
+  async findManyByNoteId(noteId: string): Promise<IAttachment[]> {
+    const attachments = await db.query.attachmentSchema.findMany({
+      where(fields, { eq }) {
+        return eq(fields.noteId, noteId);
+      },
+    });
+
+    return attachments;
+  }
 }
