@@ -10,7 +10,7 @@ export class InMemoryTaskRepository implements TaskRepository {
 
   constructor(private attachmentRepository: AttachmentRepository) {}
 
-  async create(data: ITaskCreate): Promise<void> {
+  async create(data: ITaskCreate): Promise<ITask> {
     const task = {
       id: randomUUID(),
       assignedId: data.assignedId,
@@ -22,27 +22,9 @@ export class InMemoryTaskRepository implements TaskRepository {
       userId: data.userId,
     } as ITask;
 
-    if (data.attachments) {
-      const attachments = await this.attachmentRepository.findMany(
-        data.attachments
-      );
-
-      const newAttachments = attachments.map((attachment) => {
-        return {
-          id: attachment.id,
-          fileName: attachment.fileName,
-          url: attachment.url,
-          taskId: task.id,
-          noteId: attachment.noteId,
-          createdAt: attachment.createdAt,
-          type: attachment.type,
-        } as IAttachment;
-      });
-
-      await this.attachmentRepository.save(newAttachments);
-    }
-
     this.items.push(task);
+
+    return task;
   }
   async findById(taskId: string): Promise<ITask | null> {
     const task = this.items.find((task) => task.id === taskId);
