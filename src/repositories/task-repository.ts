@@ -1,7 +1,7 @@
 import { ITask, ITaskCreate, ITaskList } from "@/models/task-model";
 
 export interface TaskRepository {
-  create(data: ITaskCreate): Promise<void>;
+  create(data: ITaskCreate): Promise<ITask>;
   save(task: ITask): Promise<void>;
   delete(id: string): Promise<void>;
   findById(taskId: string): Promise<ITask | null>;
