@@ -63,4 +63,12 @@ export class InMemoryAttachmentRepository implements AttachmentRepository {
 
     return attachments;
   }
+
+  async findManyByNoteId(noteId: string): Promise<IAttachment[]> {
+    const attachments = this.items.filter(
+      (attachment) => attachment.noteId === noteId
+    );
+
+    return attachments;
+  }
 }
