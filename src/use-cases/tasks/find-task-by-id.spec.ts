@@ -10,6 +10,7 @@ let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
 let sut: FindTaskByIdUseCase;
 
 beforeEach(() => {
+  inMemoryAttachmentRepository = new InMemoryAttachmentRepository();
   inMemoryTaskRepository = new InMemoryTaskRepository(
     inMemoryAttachmentRepository
   );
