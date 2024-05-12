@@ -12,9 +12,12 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
   try {
     const { name } = createOrganizationRequestBodySchema.parse(req.body);
 
-    const organization = await createOrganizationUseCase.execute({
-      name,
-    });
+    const organization = await createOrganizationUseCase.execute(
+      {
+        name,
+      },
+      req.user.sub
+    );
 
     return reply.status(201).send({
       organization,
