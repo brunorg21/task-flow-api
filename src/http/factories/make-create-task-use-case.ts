@@ -7,6 +7,9 @@ export function makeCreateTaskUseCase() {
   const drizzleTaskRepository = new DrizzleTaskRepository(
     drizzleAttachmentRepository
   );
-  const createTaskUseCase = new CreateTaskUseCase(drizzleTaskRepository);
+  const createTaskUseCase = new CreateTaskUseCase(
+    drizzleTaskRepository,
+    drizzleAttachmentRepository
+  );
   return createTaskUseCase;
 }

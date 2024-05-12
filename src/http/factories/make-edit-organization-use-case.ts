@@ -3,7 +3,6 @@ import { DrizzleOrganizationRepository } from "@/repositories/drizzle-repositori
 import { EditOrganizationUseCase } from "@/use-cases/organization/edit";
 
 export function makeEditOrganizationUseCase() {
-  const drizzleAttachmentRepository = new DrizzleAttachmentRepository();
   const drizzleOrganizationRepository = new DrizzleOrganizationRepository();
 
   const editOrganizationUseCase = new EditOrganizationUseCase(
