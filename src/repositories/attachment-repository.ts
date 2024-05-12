@@ -6,4 +6,5 @@ export interface AttachmentRepository {
   findMany(attachmentIds: string[]): Promise<IAttachment[]>;
   deleteMany(attachmentIds: string[]): Promise<void>;
   findManyByTaskId(taskId: string): Promise<IAttachment[]>;
+  findManyByNoteId(noteId: string): Promise<IAttachment[]>;
 }

@@ -5,4 +5,5 @@ export interface NoteRepository {
   save(note: INote): Promise<void>;
   delete(noteId: string): Promise<void>;
   findById(noteId: string): Promise<INote | null>;
+  findManyByTask(taskId: string): Promise<INote[]>;
 }
