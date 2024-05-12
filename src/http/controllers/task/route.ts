@@ -6,11 +6,13 @@ import { edit } from "./edit";
 import { deleteTask } from "./delete";
 import { findManyByUser } from "./find-many-by-user";
 import { findManyByOrganization } from "./find-many-by-organization";
+import { assignUserToTask } from "./assign-user-to-task";
 
 export async function taskRoutes(app: FastifyInstance) {
   app.addHook("onRequest", jwtVerify);
 
   app.post("/tasks", create);
+  app.post("/tasks/assign", assignUserToTask);
   app.get("/tasks/:id", findById);
   app.get("/tasks/user", findManyByUser);
   app.get("/tasks/organization/:organizationId", findManyByOrganization);
