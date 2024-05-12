@@ -9,7 +9,7 @@ export const attachmentSchema = pgTable("attachments", {
     .$defaultFn(() => createId())
     .primaryKey(),
   taskId: text("taskId").references(() => taskSchema.id),
-  noteId: text("authorId").references(() => noteSchema.id),
+  noteId: text("noteId").references(() => noteSchema.id),
   fileName: text("fileName").notNull(),
   url: text("url").notNull(),
   type: text("text").notNull(),
