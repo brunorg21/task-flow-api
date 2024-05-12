@@ -15,7 +15,7 @@ export class FindTaskByIdUseCase {
       throw new ResourceNotFoundError();
     }
 
-    const attachments = await this.attachmentRepository?.findManyByTaskId(id);
+    const attachments = await this.attachmentRepository.findManyByTaskId(id);
 
     return {
       id: task.id,
