@@ -10,10 +10,12 @@ let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
 let sut: DeleteNoteUseCase;
 
 beforeEach(() => {
-  inMemoryNoteRepository = new InMemoryNoteRepository(
+  inMemoryAttachmentRepository = new InMemoryAttachmentRepository();
+  inMemoryNoteRepository = new InMemoryNoteRepository();
+  sut = new DeleteNoteUseCase(
+    inMemoryNoteRepository,
     inMemoryAttachmentRepository
   );
-  sut = new DeleteNoteUseCase(inMemoryNoteRepository);
 });
 
 describe("delete note use case", () => {

@@ -6,16 +6,12 @@ import { InvalidCredentialsError } from "../@errors/invalid-credentials";
 import { InMemoryUserOrganizationRepository } from "@/repositories/in-memory-repositories/in-memory-user-organization-repository";
 
 let inMemoryUserRepository: InMemoryUserRepository;
-let inMemoryUserOrganizationRepository: InMemoryUserOrganizationRepository;
+
 let sut: AuthenticateUseCase;
 
 beforeEach(() => {
-  inMemoryUserOrganizationRepository = new InMemoryUserOrganizationRepository();
   inMemoryUserRepository = new InMemoryUserRepository();
-  sut = new AuthenticateUseCase(
-    inMemoryUserRepository,
-    inMemoryUserOrganizationRepository
-  );
+  sut = new AuthenticateUseCase(inMemoryUserRepository);
 });
 
 describe("authenticate user use case", () => {

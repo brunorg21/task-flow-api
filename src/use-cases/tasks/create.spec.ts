@@ -14,7 +14,10 @@ beforeEach(() => {
     inMemoryAttachmentRepository
   );
 
-  sut = new CreateTaskUseCase(inMemoryTaskRepository);
+  sut = new CreateTaskUseCase(
+    inMemoryTaskRepository,
+    inMemoryAttachmentRepository
+  );
 });
 
 describe("create task use case", () => {

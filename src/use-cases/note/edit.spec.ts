@@ -9,10 +9,12 @@ let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
 let sut: EditNoteUseCase;
 
 beforeEach(() => {
-  inMemoryNoteRepository = new InMemoryNoteRepository(
+  inMemoryAttachmentRepository = new InMemoryAttachmentRepository();
+  inMemoryNoteRepository = new InMemoryNoteRepository();
+  sut = new EditNoteUseCase(
+    inMemoryNoteRepository,
     inMemoryAttachmentRepository
   );
-  sut = new EditNoteUseCase(inMemoryNoteRepository);
 });
 
 describe("edit note use case", () => {
@@ -26,6 +28,7 @@ describe("edit note use case", () => {
     await sut.execute({
       noteId: note.id,
       description: "Descrição editada",
+      attachments: [],
     });
 
     expect(inMemoryNoteRepository.items[0].description).toEqual(

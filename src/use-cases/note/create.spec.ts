@@ -10,10 +10,11 @@ let sut: CreateNoteUseCase;
 
 beforeEach(() => {
   inMemoryAttachmentRepository = new InMemoryAttachmentRepository();
-  inMemoryNoteRepository = new InMemoryNoteRepository(
+  inMemoryNoteRepository = new InMemoryNoteRepository();
+  sut = new CreateNoteUseCase(
+    inMemoryNoteRepository,
     inMemoryAttachmentRepository
   );
-  sut = new CreateNoteUseCase(inMemoryNoteRepository);
 });
 
 describe("create note use case", () => {
