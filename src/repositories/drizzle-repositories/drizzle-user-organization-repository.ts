@@ -21,17 +21,13 @@ export class DrizzleUserOrganizationRepository
     return createdUserOrganization[0];
   }
 
-  async findByUser(userId: string): Promise<IUserOrganization | null> {
-    const userOrganization = await db.query.userOrganization.findFirst({
+  async findByUser(userId: string): Promise<IUserOrganization[]> {
+    const userOrganizations = await db.query.userOrganization.findMany({
       where(fields, { eq }) {
         return eq(fields.userId, userId);
       },
     });
 
-    if (!userOrganization) {
-      return null;
-    }
-
-    return userOrganization;
+    return userOrganizations;
   }
 }

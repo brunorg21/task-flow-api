@@ -5,7 +5,8 @@ import {
 import { OrganizationRepository } from "../organization-repository";
 import { db } from "@/db/connection";
 import { organizationSchema } from "@/db/schemas";
-import { eq } from "drizzle-orm";
+import { eq, inArray } from "drizzle-orm";
+import { IUserOrganization } from "@/models/user-organization-model";
 
 export class DrizzleOrganizationRepository implements OrganizationRepository {
   async create(data: IOrganizationCreate): Promise<IOrganization> {
@@ -33,6 +34,21 @@ export class DrizzleOrganizationRepository implements OrganizationRepository {
     }
 
     return organization;
+  }
+
+  async findMany(
+    userOrganizations: IUserOrganization[]
+  ): Promise<IOrganization[]> {
+    const organizationIds = userOrganizations.map(
+      (userOrganization) => userOrganization.organizationId
+    );
+
+    const organizations = await db
+      .select()
+      .from(organizationSchema)
+      .where(inArray(organizationSchema.id, organizationIds));
+
+    return organizations;
   }
 
   async save(organization: IOrganization): Promise<void> {

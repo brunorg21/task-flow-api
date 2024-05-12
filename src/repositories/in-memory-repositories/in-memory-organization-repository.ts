@@ -4,6 +4,7 @@ import {
 } from "@/models/organization-model";
 import { OrganizationRepository } from "../organization-repository";
 import { randomUUID } from "crypto";
+import { IUserOrganization } from "@/models/user-organization-model";
 
 export class InMemoryOrganizationRepository implements OrganizationRepository {
   public items: IOrganization[] = [];
@@ -30,6 +31,18 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
     }
 
     return organization;
+  }
+
+  async findMany(
+    userOrganizations: IUserOrganization[]
+  ): Promise<IOrganization[]> {
+    const organizations = this.items.filter((organization) => {
+      return userOrganizations.some(
+        (userOrg) => userOrg.organizationId === organization.id
+      );
+    });
+
+    return organizations;
   }
 
   async delete(id: string): Promise<void> {
