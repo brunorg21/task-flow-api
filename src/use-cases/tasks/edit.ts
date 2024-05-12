@@ -7,7 +7,7 @@ interface EditTaskUseCaseRequest {
   taskId: string;
   title: string;
   status: "Em andamento" | "Concluída" | "Cancelada";
-  attachments: string[] | null;
+  attachments: string[];
   assignedId: string | null;
 }
 
@@ -30,24 +30,42 @@ export class EditTaskUseCase {
       throw new ResourceNotFoundError();
     }
 
-    if (attachments) {
-      const currentAttachments = await this.attachmentRepository.findMany(
-        attachments
-      );
+    const currentAttachments = await this.attachmentRepository.findManyByTaskId(
+      taskId
+    );
 
+    const attachmentsToAdd = attachments.filter((newAttachmentId) => {
+      return !currentAttachments.some(
+        (attachment) => attachment.id === newAttachmentId
+      );
+    });
+
+    const attachmentsToRemove = currentAttachments.filter((attachment) => {
+      return !attachments.includes(attachment.id);
+    });
+
+    if (attachmentsToAdd.length > 0) {
+      const currentAttachments = await this.attachmentRepository.findMany(
+        attachmentsToAdd
+      );
       const newAttachments = currentAttachments.map((attachment) => {
         return {
           id: attachment.id,
           fileName: attachment.fileName,
-          url: attachment.url,
-          taskId: task.id,
           noteId: attachment.noteId,
-          createdAt: attachment.createdAt,
+          taskId: task.id,
           type: attachment.type,
+          url: attachment.url,
+          createdAt: attachment.createdAt,
         } as IAttachment;
       });
+      await this.attachmentRepository.save(newAttachments);
+    }
 
-      await this.attachmentRepository.save(newAttachments as IAttachment[]);
+    if (attachmentsToRemove.length > 0) {
+      await this.attachmentRepository.deleteMany(
+        attachmentsToRemove.map((a) => a.id)
+      );
     }
 
     task.title = title;
