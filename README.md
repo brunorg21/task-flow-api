@@ -27,13 +27,17 @@ Status das Tarefas: Oferecer uma visão clara do status atual de cada tarefa, in
 - [x] Deve ser possível designar quem irá fazer a tarefa;
 - [x] Deve ser possível listar tarefas por usuário;
 - [x] Deve ser possível listar tarefas por organização;
+- [x] Deve ser possível listar todas organizações;
 - [x] Deve ser possível filtrar as tarefas por status;
 - [x] Deve ser possível que uma organização tenha vários usuários;
 - [x] Deve ser possível que um usuário tenha várias organizações;
 - [x] Deve ser possível filtrar as tarefas por data;
-- [ ] Deve ser possível adicionar notas para cada tarefa;
-- [ ] Deve ser possível remover notas;
-- [ ] Deve ser possível atualizar notas;
+- [x] Deve ser possível adicionar notas para cada tarefa;
+- [x] Deve ser possível remover notas;
+- [x] Deve ser possível atualizar notas;
+- [x] Deve ser possível fazer upload de anexos para tarefas;
+- [x] Deve ser possível fazer upload de anexos para notas;
+- [x] Deve ser possível filtrar ;
 
 ## Regras de negócio
 
