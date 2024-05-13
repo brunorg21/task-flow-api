@@ -14,8 +14,8 @@ export const noteSchema = pgTable("note", {
   authorId: text("authorId")
     .references(() => userSchema.id)
     .notNull(),
-  description: text("description"),
-  createdAt: timestamp("createdAt").defaultNow(),
+  description: text("description").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAat").$onUpdate(() => new Date()),
 });
 

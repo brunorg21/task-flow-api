@@ -4,6 +4,7 @@ import { authenticate } from "./authenticate";
 import { profile } from "./profile";
 import { jwtVerify } from "@/http/middlewares/jwt-verify";
 import { edit } from "./edit";
+import { deleteUser } from "./delete";
 
 export async function userRoutes(app: FastifyInstance) {
   app.post("/user", create);
@@ -24,5 +25,13 @@ export async function userRoutes(app: FastifyInstance) {
       onRequest: [jwtVerify],
     },
     edit
+  );
+
+  app.delete(
+    "/user:id",
+    {
+      onRequest: [jwtVerify],
+    },
+    deleteUser
   );
 }

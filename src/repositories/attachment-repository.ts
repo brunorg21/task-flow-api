@@ -1,7 +1,10 @@
 import { IAttachment, IAttachmentCreate } from "@/models/attachment-model";
 
 export interface AttachmentRepository {
-  create(data: IAttachmentCreate): Promise<IAttachment>;
+  createMany(data: IAttachmentCreate[]): Promise<IAttachment[]>;
   save(attachments: IAttachment[]): Promise<void>;
-  deleteManyByTaskId(id: string): Promise<void>;
+  findMany(attachmentIds: string[]): Promise<IAttachment[]>;
+  deleteMany(attachmentIds: string[]): Promise<void>;
+  findManyByTaskId(taskId: string): Promise<IAttachment[]>;
+  findManyByNoteId(noteId: string): Promise<IAttachment[]>;
 }

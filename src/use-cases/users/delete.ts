@@ -1,5 +1,5 @@
 import { UserRepository } from "@/repositories/user-repository";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 
 export class DeleteUserUseCase {
   constructor(private userRepository: UserRepository) {}

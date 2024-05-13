@@ -5,6 +5,6 @@ export const organizationSchema = pgTable("organization", {
   id: text("id")
     .$defaultFn(() => createId())
     .primaryKey(),
-  name: text("name"),
-  createdAt: timestamp("createdAt").defaultNow(),
+  name: text("name").notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
 });

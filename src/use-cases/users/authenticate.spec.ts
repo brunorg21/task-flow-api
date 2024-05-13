@@ -2,9 +2,11 @@ import { InMemoryUserRepository } from "@/repositories/in-memory-repositories/in
 import { beforeEach, describe, expect, it } from "vitest";
 import { AuthenticateUseCase } from "./authenticate";
 import { hash } from "bcrypt";
-import { InvalidCredentialsError } from "../errors/invalid-credentials";
+import { InvalidCredentialsError } from "../@errors/invalid-credentials";
+import { InMemoryUserOrganizationRepository } from "@/repositories/in-memory-repositories/in-memory-user-organization-repository";
 
 let inMemoryUserRepository: InMemoryUserRepository;
+
 let sut: AuthenticateUseCase;
 
 beforeEach(() => {
@@ -20,7 +22,7 @@ describe("authenticate user use case", () => {
       username: "bruno",
     });
 
-    const { user } = await sut.execute({
+    const user = await sut.execute({
       email: "bruno@email.com",
       password: "12345",
     });

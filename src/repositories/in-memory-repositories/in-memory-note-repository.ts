@@ -6,7 +6,7 @@ export class InMemoryNoteRepository implements NoteRepository {
   public items: INote[] = [];
 
   async create(data: INoteCreate): Promise<INote> {
-    const org = {
+    const note = {
       id: randomUUID(),
       authorId: data.authorId,
       createdAt: new Date(),
@@ -15,9 +15,9 @@ export class InMemoryNoteRepository implements NoteRepository {
       taskId: data.taskId,
     } as INote;
 
-    this.items.push(org);
+    this.items.push(note);
 
-    return org;
+    return note;
   }
 
   async findById(id: string): Promise<INote | null> {
@@ -40,5 +40,11 @@ export class InMemoryNoteRepository implements NoteRepository {
     const noteIndex = this.items.findIndex((item) => item.id === note.id);
 
     this.items[noteIndex] = note;
+  }
+
+  async findManyByTask(taskId: string): Promise<INote[]> {
+    const notes = this.items.filter((note) => note.taskId === taskId);
+
+    return notes;
   }
 }

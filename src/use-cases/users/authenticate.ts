@@ -1,6 +1,6 @@
 import { IAuthenticate } from "@/models/user-model";
 import { UserRepository } from "@/repositories/user-repository";
-import { InvalidCredentialsError } from "../errors/invalid-credentials";
+import { InvalidCredentialsError } from "../@errors/invalid-credentials";
 import { compare } from "bcrypt";
 
 export class AuthenticateUseCase {
@@ -20,7 +20,7 @@ export class AuthenticateUseCase {
     }
 
     return {
-      user,
+      ...user,
     };
   }
 }

@@ -1,3 +1,4 @@
+import { IAttachment } from "@/models/attachment-model";
 import { ITaskCreate } from "@/models/task-model";
 import { AttachmentRepository } from "@/repositories/attachment-repository";
 import { TaskRepository } from "@/repositories/task-repository";
@@ -12,15 +13,23 @@ export class CreateTaskUseCase {
     const task = await this.taskRepository.create(data);
 
     if (data.attachments) {
-      data.attachments?.map((attachmentId) => {
-        return this.attachmentRepository.create({
-          createdAt: new Date(),
-          taskId: task.id,
-          attachmentId,
-        });
-      });
-    }
+      const attachments = await this.attachmentRepository.findMany(
+        data.attachments
+      );
 
-    return task;
+      const newAttachments = attachments.map((attachment) => {
+        return {
+          id: attachment.id,
+          fileName: attachment.fileName,
+          url: attachment.url,
+          taskId: task.id,
+          noteId: attachment.noteId,
+          createdAt: attachment.createdAt,
+          type: attachment.type,
+        } as IAttachment;
+      });
+
+      await this.attachmentRepository.save(newAttachments);
+    }
   }
 }

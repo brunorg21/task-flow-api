@@ -1,5 +1,5 @@
 import { makeCreateUserUseCase } from "@/http/factories/make-create-user-use-case";
-import { UserAlreadyExistError } from "@/use-cases/errors/user-already-exist-error";
+import { UserAlreadyExistError } from "@/use-cases/@errors/user-already-exist-error";
 import { hash } from "bcrypt";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
@@ -30,7 +30,13 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
     if (error instanceof UserAlreadyExistError) {
       return reply.status(400).send({
         message: error.message,
+        cause: error.cause,
+        name: error.name,
       });
     }
+
+    return reply.status(500).send({
+      message: "Erro interno do servidor.",
+    });
   }
 }

@@ -1,8 +1,9 @@
-import { ITask, ITaskCreate } from "@/models/task-model";
+import { ITask, ITaskCreate, ITaskList } from "@/models/task-model";
 import { TaskRepository } from "../task-repository";
 import { randomUUID } from "crypto";
 import dayjs from "dayjs";
 import { AttachmentRepository } from "../attachment-repository";
+import { IAttachment } from "@/models/attachment-model";
 
 export class InMemoryTaskRepository implements TaskRepository {
   public items: ITask[] = [];
@@ -15,7 +16,6 @@ export class InMemoryTaskRepository implements TaskRepository {
       assignedId: data.assignedId,
       attachments: data.attachments,
       createdAt: data.createdAt,
-      noteId: data.noteId,
       organizationId: data.organizationId,
       status: "Em andamento",
       title: data.title,
@@ -35,49 +35,84 @@ export class InMemoryTaskRepository implements TaskRepository {
 
     return task;
   }
-  async findManyByUser(userId: string): Promise<ITask[] | null> {
-    const tasks = this.items.filter((task) => task.userId === userId);
+  async findManyByUser(
+    userId: string,
+    status: "Em andamento" | "Concluída" | "Cancelada" | null,
+    date: Date | null
+  ): Promise<ITaskList[]> {
+    let tasks: ITask[];
 
-    if (tasks.length === 0) {
-      return null;
-    }
+    tasks = this.items.filter((task) =>
+      status && date
+        ? (task.userId === userId &&
+            task.status === status &&
+            dayjs(task.createdAt).isBefore(date)) ||
+          (dayjs(task.createdAt).isSame(date) && task.userId)
+        : status
+        ? task.userId === userId && task.status === status
+        : date
+        ? task.userId === userId && dayjs(task.createdAt).isBefore(date)
+        : task.userId === userId
+    );
 
-    return tasks;
+    return await Promise.all(
+      tasks.map(async (task) => {
+        const attachments = await this.attachmentRepository.findManyByTaskId(
+          task.id
+        );
+
+        return {
+          id: task.id,
+          assignedId: task.assignedId,
+          organizationId: task.organizationId,
+          title: task.title,
+          userId: task.userId,
+          attachments,
+          createdAt: task.createdAt,
+          status: task.status,
+        } as ITaskList;
+      })
+    );
   }
   async findManyByOrganization(
-    organizationId: string
-  ): Promise<ITask[] | null> {
-    const tasks = this.items.filter(
-      (task) => task.organizationId === organizationId
+    organizationId: string,
+    status: "Em andamento" | "Concluída" | "Cancelada" | null,
+    date: Date | null
+  ): Promise<ITaskList[]> {
+    let tasks: ITask[] = [];
+
+    tasks = this.items.filter((task) =>
+      status && date
+        ? (task.organizationId === organizationId &&
+            task.status === status &&
+            dayjs(task.createdAt).isBefore(date)) ||
+          (dayjs(task.createdAt).isSame(date) && task.userId)
+        : status
+        ? task.organizationId === organizationId && task.status === status
+        : date
+        ? task.organizationId === organizationId &&
+          dayjs(task.createdAt).isBefore(date)
+        : task.organizationId === organizationId
     );
 
-    if (tasks.length === 0) {
-      return null;
-    }
+    return await Promise.all(
+      tasks.map(async (task) => {
+        const attachments = await this.attachmentRepository?.findManyByTaskId(
+          task.id
+        );
 
-    return tasks;
-  }
-  async findByStatus(status: string): Promise<ITask[] | null> {
-    const tasks = this.items.filter((task) => task.status === status);
-
-    if (tasks.length === 0) {
-      return null;
-    }
-
-    return tasks;
-  }
-  async findByDate(date: Date): Promise<ITask[] | null> {
-    const tasks = this.items.filter(
-      (task) =>
-        dayjs(task.createdAt).isBefore(date) ||
-        dayjs(task.createdAt).isSame(date)
+        return {
+          id: task.id,
+          assignedId: task.assignedId,
+          organizationId: task.organizationId,
+          title: task.title,
+          userId: task.userId,
+          attachments,
+          createdAt: task.createdAt,
+          status: task.status,
+        } as ITaskList;
+      })
     );
-
-    if (tasks.length === 0) {
-      return null;
-    }
-
-    return tasks;
   }
 
   async assignUserToTask(userId: string, task: ITask): Promise<ITask> {
@@ -90,8 +125,6 @@ export class InMemoryTaskRepository implements TaskRepository {
     const itemIndex = this.items.findIndex((item) => item.id === id);
 
     this.items.splice(itemIndex, 1);
-
-    this.attachmentRepository.deleteManyByTaskId(id);
   }
 
   async save(task: ITask): Promise<void> {

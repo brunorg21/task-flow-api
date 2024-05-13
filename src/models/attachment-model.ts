@@ -1,8 +1,11 @@
 export interface IAttachment {
   id: string;
-  attachmentId: string;
-  taskId: string;
-  createdAt: Date;
+  fileName: string;
+  url: string;
+  type: string;
+  taskId: string | null;
+  noteId: string | null;
+  createdAt?: Date;
 }
 
 export type IAttachmentCreate = Omit<IAttachment, "id">;

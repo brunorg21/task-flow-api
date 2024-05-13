@@ -1,6 +1,6 @@
 import { makeEditUserUseCase } from "@/http/factories/make-edit-user-use-case";
-import { InvalidCredentialsError } from "@/use-cases/errors/invalid-credentials";
-import { ResourceNotFoundError } from "@/use-cases/errors/resource-not-found-error";
+import { ResourceNotFoundError } from "@/use-cases/@errors/resource-not-found-error";
+import { UserAlreadyExistError } from "@/use-cases/@errors/user-already-exist-error";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
@@ -8,12 +8,9 @@ export async function edit(req: FastifyRequest, reply: FastifyReply) {
   const editUserRequestBodySchema = z.object({
     email: z.string().email(),
     username: z.string(),
-    password: z.string(),
   });
 
-  const { email, password, username } = editUserRequestBodySchema.parse(
-    req.body
-  );
+  const { email, username } = editUserRequestBodySchema.parse(req.body);
 
   const editUserUseCase = makeEditUserUseCase();
 
@@ -21,7 +18,6 @@ export async function edit(req: FastifyRequest, reply: FastifyReply) {
     const { user } = await editUserUseCase.execute({
       userId: req.user.sub,
       email,
-      password,
       username,
     });
 
@@ -32,7 +28,20 @@ export async function edit(req: FastifyRequest, reply: FastifyReply) {
     if (error instanceof ResourceNotFoundError) {
       return reply.status(400).send({
         message: error.message,
+        cause: error.cause,
+        name: error.name,
       });
     }
+    if (error instanceof UserAlreadyExistError) {
+      return reply.status(400).send({
+        message: error.message,
+        cause: error.cause,
+        name: error.name,
+      });
+    }
+
+    return reply.status(500).send({
+      message: "Erro interno do servidor.",
+    });
   }
 }

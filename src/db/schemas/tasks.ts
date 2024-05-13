@@ -23,7 +23,6 @@ export const taskSchema = pgTable("tasks", {
   organizationId: text("organizationId"),
   assignedId: text("assignedId").references(() => userSchema.id),
   status: statusTypeEnum("status").default("Em andamento").notNull(),
-  attachmentId: text("attachmentId"),
 });
 
 export const taskRelations = relations(taskSchema, ({ one, many }) => ({

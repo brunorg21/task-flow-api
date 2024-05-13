@@ -2,13 +2,19 @@ import { InMemoryNoteRepository } from "@/repositories/in-memory-repositories/in
 import { beforeEach, describe, expect, it } from "vitest";
 import { EditNoteUseCase } from "./edit";
 import { makeNote } from "../factories/make-note";
+import { InMemoryAttachmentRepository } from "@/repositories/in-memory-repositories/in-memory-attachment-repository";
 
 let inMemoryNoteRepository: InMemoryNoteRepository;
+let inMemoryAttachmentRepository: InMemoryAttachmentRepository;
 let sut: EditNoteUseCase;
 
 beforeEach(() => {
+  inMemoryAttachmentRepository = new InMemoryAttachmentRepository();
   inMemoryNoteRepository = new InMemoryNoteRepository();
-  sut = new EditNoteUseCase(inMemoryNoteRepository);
+  sut = new EditNoteUseCase(
+    inMemoryNoteRepository,
+    inMemoryAttachmentRepository
+  );
 });
 
 describe("edit note use case", () => {
@@ -22,6 +28,7 @@ describe("edit note use case", () => {
     await sut.execute({
       noteId: note.id,
       description: "Descrição editada",
+      attachments: [],
     });
 
     expect(inMemoryNoteRepository.items[0].description).toEqual(

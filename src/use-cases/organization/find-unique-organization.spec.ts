@@ -1,7 +1,7 @@
 import { InMemoryOrganizationRepository } from "@/repositories/in-memory-repositories/in-memory-organization-repository";
 import { beforeEach, describe, expect, it } from "vitest";
 import { FindUniqueOrganizationUseCase } from "./find-unique-organization";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 
 let inMemoryOrganizationRepository: InMemoryOrganizationRepository;
 let sut: FindUniqueOrganizationUseCase;

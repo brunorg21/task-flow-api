@@ -1,5 +1,5 @@
 import { makeDeleteUserUseCase } from "@/http/factories/make-delete-user-use-case";
-import { ResourceNotFoundError } from "@/use-cases/errors/resource-not-found-error";
+import { ResourceNotFoundError } from "@/use-cases/@errors/resource-not-found-error";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
@@ -18,7 +18,13 @@ export async function deleteUser(req: FastifyRequest, reply: FastifyReply) {
     if (error instanceof ResourceNotFoundError) {
       return reply.status(400).send({
         message: error.message,
+        cause: error.cause,
+        name: error.name,
       });
     }
+
+    return reply.status(500).send({
+      message: "Erro interno do servidor.",
+    });
   }
 }

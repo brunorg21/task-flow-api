@@ -1,5 +1,5 @@
 import { UserRepository } from "@/repositories/user-repository";
-import { InvalidCredentialsError } from "../errors/invalid-credentials";
+import { InvalidCredentialsError } from "../@errors/invalid-credentials";
 import { IUser } from "@/models/user-model";
 
 interface GetProfileUseCaseRequest {

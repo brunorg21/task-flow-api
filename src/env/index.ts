@@ -6,6 +6,8 @@ const envSchmea = z.object({
   PORT: z.coerce.number(),
   DATABASE_URL: z.string(),
   SECRET_KEY: z.string(),
+  SUPABASE_URL: z.string(),
+  SUPABASE_SECRET_KEY: z.string(),
 });
 
 const _env = envSchmea.safeParse(process.env);

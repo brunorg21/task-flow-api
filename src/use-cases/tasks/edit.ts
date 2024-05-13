@@ -1,5 +1,5 @@
 import { TaskRepository } from "@/repositories/task-repository";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ResourceNotFoundError } from "../@errors/resource-not-found-error";
 import { AttachmentRepository } from "@/repositories/attachment-repository";
 import { IAttachment } from "@/models/attachment-model";
 
@@ -8,6 +8,7 @@ interface EditTaskUseCaseRequest {
   title: string;
   status: "Em andamento" | "Concluída" | "Cancelada";
   attachments: string[];
+  assignedId: string | null;
 }
 
 export class EditTaskUseCase {
@@ -21,6 +22,7 @@ export class EditTaskUseCase {
     taskId,
     status,
     attachments,
+    assignedId,
   }: EditTaskUseCaseRequest) {
     const task = await this.taskRepository.findById(taskId);
 
@@ -28,23 +30,48 @@ export class EditTaskUseCase {
       throw new ResourceNotFoundError();
     }
 
-    if (attachments) {
-      const newAttachments = await Promise.all(
-        attachments.map(async (attachmentId) => {
-          return {
-            attachmentId,
-            createdAt: new Date(),
-            taskId: task.id,
-          };
-        })
-      );
+    const currentAttachments = await this.attachmentRepository.findManyByTaskId(
+      taskId
+    );
 
-      await this.attachmentRepository.save(newAttachments as IAttachment[]);
+    const attachmentsToAdd = attachments.filter((newAttachmentId) => {
+      return !currentAttachments.some(
+        (attachment) => attachment.id === newAttachmentId
+      );
+    });
+
+    const attachmentsToRemove = currentAttachments.filter((attachment) => {
+      return !attachments.includes(attachment.id);
+    });
+
+    if (attachmentsToAdd.length > 0) {
+      const currentAttachments = await this.attachmentRepository.findMany(
+        attachmentsToAdd
+      );
+      const newAttachments = currentAttachments.map((attachment) => {
+        return {
+          id: attachment.id,
+          fileName: attachment.fileName,
+          noteId: attachment.noteId,
+          taskId: task.id,
+          type: attachment.type,
+          url: attachment.url,
+          createdAt: attachment.createdAt,
+        } as IAttachment;
+      });
+      await this.attachmentRepository.save(newAttachments);
+    }
+
+    if (attachmentsToRemove.length > 0) {
+      await this.attachmentRepository.deleteMany(
+        attachmentsToRemove.map((a) => a.id)
+      );
     }
 
     task.title = title;
     task.status = status;
     task.attachments = attachments;
+    task.assignedId = assignedId;
 
     await this.taskRepository.save(task);
   }
