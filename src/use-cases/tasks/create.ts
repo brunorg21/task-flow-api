@@ -31,5 +31,7 @@ export class CreateTaskUseCase {
 
       await this.attachmentRepository.save(newAttachments);
     }
+
+    return { task };
   }
 }
