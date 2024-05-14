@@ -8,6 +8,7 @@ import fastifyMultipart from "@fastify/multipart";
 import { attachmentRoutes } from "./http/controllers/attachment/route";
 import { organizationRoutes } from "./http/controllers/organization/route";
 import { noteRoutes } from "./http/controllers/note/route";
+import { ZodError } from "zod";
 
 const app = fastify();
 
@@ -27,6 +28,26 @@ app.register(taskRoutes);
 app.register(attachmentRoutes);
 app.register(organizationRoutes);
 app.register(noteRoutes);
+
+app.setErrorHandler((error, _, reply) => {
+  if (error instanceof ZodError) {
+    return reply.status(400).send({
+      message: "Validation error.",
+      issues: error.format(),
+    });
+  }
+
+  if (env.NODE_ENV !== "production") {
+    console.error(error);
+  } else {
+    //TODO
+  }
+
+  return reply.status(500).send({
+    message: "Erro interno servidor",
+    error,
+  });
+});
 
 app
   .listen({
