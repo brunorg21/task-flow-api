@@ -20,13 +20,14 @@ export async function findManyByUser(req: FastifyRequest, reply: FastifyReply) {
     const tasks = await findManyByUserUseCase.execute(
       req.user.sub,
       status,
-      dayjs(date).toDate()
+      date ? dayjs(date).toDate() : null
     );
 
     return reply.status(200).send({
       tasks,
     });
   } catch (error) {
+    console.log(error);
     return reply.status(500).send({
       message: "Erro interno do servidor.",
       error,
