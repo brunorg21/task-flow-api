@@ -9,7 +9,7 @@ export async function edit(req: FastifyRequest, reply: FastifyReply) {
     title: z.string(),
     assignedId: z.string().nullable().default(null),
     status: z.enum(["Em andamento", "Concluída", "Cancelada"]),
-    attachments: z.array(z.string()).nullable().default(null),
+    attachments: z.array(z.string()).default([]),
   });
 
   const editTaskRequestParamSchema = z.object({

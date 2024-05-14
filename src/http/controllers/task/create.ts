@@ -8,7 +8,7 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
     organizationId: z.string().uuid().nullable().default(null),
     assignedId: z.string().uuid().nullable().default(null),
     status: z.enum(["Em andamento", "Concluída", "Cancelada"]),
-    attachments: z.array(z.string()).nullable().default(null),
+    attachments: z.array(z.string()).default([]),
   });
 
   const { assignedId, organizationId, status, title, attachments } =
@@ -17,7 +17,7 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
   const createTaskUseCase = makeCreateTaskUseCase();
 
   try {
-    await createTaskUseCase.execute({
+    const { task } = await createTaskUseCase.execute({
       assignedId,
       attachments,
       organizationId,
@@ -26,7 +26,9 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
       status,
     });
 
-    return reply.status(201).send();
+    return reply.status(201).send({
+      task,
+    });
   } catch (error) {
     return reply.status(400).send({
       message: "Não foi possível criar",

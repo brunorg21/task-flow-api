@@ -6,7 +6,7 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
   const createNoteRequestBodySchema = z.object({
     description: z.string(),
     taskId: z.string(),
-    attachments: z.array(z.string()).nullable().default(null),
+    attachments: z.array(z.string()).default([]),
   });
 
   const { description, taskId, attachments } =

@@ -6,7 +6,7 @@ import { z } from "zod";
 export async function editNote(req: FastifyRequest, reply: FastifyReply) {
   const editNoteRequestBodySchema = z.object({
     description: z.string(),
-    attachments: z.array(z.string()).nullable().default(null),
+    attachments: z.array(z.string()).default([]),
   });
 
   const editNoteRequestParamSchema = z.object({
@@ -21,7 +21,7 @@ export async function editNote(req: FastifyRequest, reply: FastifyReply) {
 
   try {
     await editNoteUseCase.execute({
-      attachments: attachments ?? [],
+      attachments: attachments,
       description,
       noteId,
     });
