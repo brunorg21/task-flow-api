@@ -31,6 +31,9 @@ export class DrizzleNoteRepository implements NoteRepository {
       where(fields, { eq }) {
         return eq(fields.id, noteId);
       },
+      with: {
+        attachment: true,
+      },
     });
 
     if (!note) {
@@ -44,6 +47,9 @@ export class DrizzleNoteRepository implements NoteRepository {
     const notes = await db.query.noteSchema.findMany({
       where(fields, { eq }) {
         return eq(fields.taskId, taskId);
+      },
+      with: {
+        attachment: true,
       },
     });
 

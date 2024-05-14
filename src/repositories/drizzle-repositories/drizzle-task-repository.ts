@@ -69,6 +69,7 @@ export class DrizzleTaskRepository implements TaskRepository {
       },
       with: {
         note: true,
+        attachment: true,
       },
     });
 
@@ -108,29 +109,12 @@ export class DrizzleTaskRepository implements TaskRepository {
       },
       with: {
         note: true,
+        attachment: true,
       },
       orderBy: (task, { desc }) => [desc(task.createdAt)],
     });
 
-    return await Promise.all(
-      tasks.map(async (task) => {
-        const attachments = await this.attachmentRepository.findManyByTaskId(
-          task.id
-        );
-
-        return {
-          id: task.id,
-          assignedId: task.assignedId,
-          organizationId: task.organizationId,
-          title: task.title,
-          userId: task.userId,
-          attachments,
-          createdAt: task.createdAt,
-          status: task.status,
-          note: task.note,
-        } as ITaskList;
-      })
-    );
+    return tasks;
   }
 
   async findManyByOrganization(
@@ -161,29 +145,12 @@ export class DrizzleTaskRepository implements TaskRepository {
       },
       with: {
         note: true,
+        attachment: true,
       },
       orderBy: (task, { desc }) => [desc(task.createdAt)],
     });
 
-    return await Promise.all(
-      tasks.map(async (task) => {
-        const attachments = await this.attachmentRepository.findManyByTaskId(
-          task.id
-        );
-
-        return {
-          id: task.id,
-          assignedId: task.assignedId,
-          organizationId: task.organizationId,
-          title: task.title,
-          userId: task.userId,
-          attachments,
-          createdAt: task.createdAt,
-          status: task.status,
-          note: task.note,
-        } as ITaskList;
-      })
-    );
+    return tasks;
   }
 
   async assignUserToTask(userId: string, task: ITask): Promise<ITask> {
