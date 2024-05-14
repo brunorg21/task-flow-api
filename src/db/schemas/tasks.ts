@@ -4,6 +4,7 @@ import { relations } from "drizzle-orm";
 import { userSchema } from "./users";
 import { noteSchema } from "./note";
 import { createId } from "@paralleldrive/cuid2";
+import { attachmentSchema } from "./attachment";
 
 export const statusTypeEnum = pgEnum("status_task", [
   "Em andamento",
@@ -37,4 +38,5 @@ export const taskRelations = relations(taskSchema, ({ one, many }) => ({
     relationName: "task-user",
   }),
   note: many(noteSchema),
+  attachment: many(attachmentSchema),
 }));

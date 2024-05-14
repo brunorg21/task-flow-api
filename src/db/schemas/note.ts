@@ -3,6 +3,7 @@ import { taskSchema } from "./tasks";
 import { userSchema } from "./users";
 import { relations } from "drizzle-orm";
 import { createId } from "@paralleldrive/cuid2";
+import { attachmentSchema } from "./attachment";
 
 export const noteSchema = pgTable("note", {
   id: text("id")
@@ -19,7 +20,7 @@ export const noteSchema = pgTable("note", {
   updatedAt: timestamp("updatedAat").$onUpdate(() => new Date()),
 });
 
-export const noteRelations = relations(noteSchema, ({ one }) => ({
+export const noteRelations = relations(noteSchema, ({ one, many }) => ({
   user: one(userSchema, {
     fields: [noteSchema.authorId],
     references: [userSchema.id],
@@ -30,4 +31,5 @@ export const noteRelations = relations(noteSchema, ({ one }) => ({
     references: [taskSchema.id],
     relationName: "note-task  ",
   }),
+  attachment: many(attachmentSchema),
 }));
