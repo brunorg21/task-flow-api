@@ -5,8 +5,8 @@ import { z } from "zod";
 export async function create(req: FastifyRequest, reply: FastifyReply) {
   const createTaskRequestBodySchema = z.object({
     title: z.string(),
-    organizationId: z.string().uuid().nullable().default(null),
-    assignedId: z.string().uuid().nullable().default(null),
+    organizationId: z.string().nullable().default(null),
+    assignedId: z.string().nullable().default(null),
     status: z.enum(["Em andamento", "Concluída", "Cancelada"]),
     attachments: z.array(z.string()).default([]),
   });
