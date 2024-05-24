@@ -115,11 +115,6 @@ export class DrizzleTaskRepository implements TaskRepository {
     startDate: Date | null,
     endDate: Date | null
   ): Promise<ITaskList[]> {
-    console.log({
-      startDate,
-      endDate,
-    });
-
     const tasks = await db.query.taskSchema.findMany({
       where(fields, { eq, and, gte, lte }) {
         return and(
