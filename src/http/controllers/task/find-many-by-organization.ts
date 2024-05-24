@@ -1,4 +1,5 @@
 import { makeFindManyTaskByOrganizationUseCase } from "@/http/factories/make-find-many-task-by-organization-use-case";
+import dayjs from "dayjs";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
@@ -13,7 +14,8 @@ export async function findManyByOrganization(
       .enum(["Em andamento", "Concluída", "Cancelada"])
       .nullable()
       .default(null),
-    date: z.date().nullable().default(null),
+    startDate: z.string().nullable().default(null),
+    endDate: z.string().nullable().default(null),
   });
 
   const findManyTaskByOrganizationRequestParamSchema = z.object({
@@ -21,9 +23,8 @@ export async function findManyByOrganization(
   });
 
   try {
-    const { status, date } = findManyTaskByOrganizationRequestQuerySchema.parse(
-      req.query
-    );
+    const { status, endDate, startDate } =
+      findManyTaskByOrganizationRequestQuerySchema.parse(req.query);
 
     const { organizationId } =
       findManyTaskByOrganizationRequestParamSchema.parse(req.params);
@@ -31,7 +32,8 @@ export async function findManyByOrganization(
     const tasks = await findManyTaskByOrganization.execute(
       organizationId,
       status,
-      date
+      startDate ? dayjs(startDate).toDate() : null,
+      endDate ? dayjs(endDate).toDate() : null
     );
 
     return reply.status(200).send({

@@ -7,12 +7,14 @@ export class FindManyTasksByUserUseCase {
   async execute(
     userId: string,
     status: "Em andamento" | "Concluída" | "Cancelada" | null,
-    date: Date | null
+    startDate: Date | null,
+    endDate: Date | null
   ) {
     const tasks = await this.taskRepository.findManyByUser(
       userId,
       status,
-      date
+      startDate,
+      endDate
     );
 
     return tasks;

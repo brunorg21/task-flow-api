@@ -8,12 +8,14 @@ export interface TaskRepository {
   findManyByUser(
     userId: string,
     status: "Em andamento" | "Concluída" | "Cancelada" | null,
-    date: Date | null
+    startDate: Date | null,
+    endDate: Date | null
   ): Promise<ITaskList[]>;
   findManyByOrganization(
     organizationId: string,
     status: "Em andamento" | "Concluída" | "Cancelada" | null,
-    date: Date | null
+    startDate: Date | null,
+    endDate: Date | null
   ): Promise<ITaskList[]>;
   assignUserToTask(userId: string, task: ITask): Promise<ITask>;
 }

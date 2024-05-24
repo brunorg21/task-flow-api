@@ -6,12 +6,14 @@ export class FindManyTasksByOrganizationUseCase {
   async execute(
     organizationId: string,
     status: "Em andamento" | "Concluída" | "Cancelada" | null,
-    date: Date | null
+    startDate: Date | null,
+    endDate: Date | null
   ) {
     const tasks = await this.taskRepository.findManyByOrganization(
       organizationId,
       status,
-      date
+      startDate,
+      endDate
     );
 
     return tasks;

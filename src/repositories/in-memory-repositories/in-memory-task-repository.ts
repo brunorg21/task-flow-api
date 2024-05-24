@@ -38,22 +38,27 @@ export class InMemoryTaskRepository implements TaskRepository {
   async findManyByUser(
     userId: string,
     status: "Em andamento" | "Concluída" | "Cancelada" | null,
-    date: Date | null
+    startDate: Date | null,
+    endDate: Date | null
   ): Promise<ITaskList[]> {
     let tasks: ITask[];
 
     tasks = this.items.filter((task) =>
-      status && date
+      status && startDate && endDate
         ? (task.userId === userId &&
             task.status === status &&
-            dayjs(task.createdAt).isBefore(date)) ||
-          (dayjs(task.createdAt).isSame(date) && task.userId)
+            dayjs(task.createdAt).isAfter(startDate)) ||
+          (dayjs(task.createdAt).isBefore(endDate) && task.userId)
         : status
         ? task.userId === userId && task.status === status
-        : date
-        ? task.userId === userId && dayjs(task.createdAt).isBefore(date)
+        : startDate && endDate
+        ? (task.userId === userId &&
+            dayjs(task.createdAt).isAfter(startDate)) ||
+          dayjs(task.createdAt).isBefore(endDate)
         : task.userId === userId
     );
+
+    console.log(tasks);
 
     return await Promise.all(
       tasks.map(async (task) => {
@@ -77,21 +82,23 @@ export class InMemoryTaskRepository implements TaskRepository {
   async findManyByOrganization(
     organizationId: string,
     status: "Em andamento" | "Concluída" | "Cancelada" | null,
-    date: Date | null
+    startDate: Date | null,
+    endDate: Date | null
   ): Promise<ITaskList[]> {
     let tasks: ITask[] = [];
 
     tasks = this.items.filter((task) =>
-      status && date
+      status && startDate && endDate
         ? (task.organizationId === organizationId &&
             task.status === status &&
-            dayjs(task.createdAt).isBefore(date)) ||
-          (dayjs(task.createdAt).isSame(date) && task.userId)
+            dayjs(task.createdAt).isAfter(startDate)) ||
+          (dayjs(task.createdAt).isBefore(endDate) && task.userId)
         : status
         ? task.organizationId === organizationId && task.status === status
-        : date
-        ? task.organizationId === organizationId &&
-          dayjs(task.createdAt).isBefore(date)
+        : startDate && endDate
+        ? (task.organizationId === organizationId &&
+            dayjs(task.createdAt).isAfter(startDate)) ||
+          dayjs(task.createdAt).isBefore(endDate)
         : task.organizationId === organizationId
     );
 

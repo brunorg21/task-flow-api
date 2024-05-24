@@ -11,16 +11,19 @@ export async function findManyByUser(req: FastifyRequest, reply: FastifyReply) {
       .enum(["Em andamento", "Concluída", "Cancelada"])
       .nullable()
       .default(null),
-    date: z.string().nullable().default(null),
+    startDate: z.string().nullable().default(null),
+    endDate: z.string().nullable().default(null),
   });
 
   try {
-    const { status, date } = findManyByUserRequestQuerySchema.parse(req.query);
+    const { status, endDate, startDate } =
+      findManyByUserRequestQuerySchema.parse(req.query);
 
     const tasks = await findManyByUserUseCase.execute(
       req.user.sub,
       status,
-      date ? dayjs(date).toDate() : null
+      startDate ? dayjs(startDate).toDate() : null,
+      endDate ? dayjs(endDate).toDate() : null
     );
 
     return reply.status(200).send({

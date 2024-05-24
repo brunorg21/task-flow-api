@@ -83,23 +83,15 @@ export class DrizzleTaskRepository implements TaskRepository {
   async findManyByUser(
     userId: string,
     status: "Em andamento" | "Concluída" | "Cancelada" | null,
-    date: Date | null
+    startDate: Date | null,
+    endDate: Date | null
   ): Promise<ITaskList[]> {
-    const startDate = dayjs(date)
-      .add(dayjs(date).utcOffset(), "minutes")
-      .startOf("day")
-      .toDate();
-    const endDate = dayjs(date)
-      .add(dayjs(date).utcOffset(), "minutes")
-      .endOf("day")
-      .toDate();
-
     const tasks = await db.query.taskSchema.findMany({
       where(fields, { eq, and, gte, lte }) {
         return and(
           eq(fields.userId, userId),
           status ? eq(fields.status, status) : undefined,
-          date
+          startDate && endDate
             ? and(
                 gte(fields.createdAt, startDate),
                 lte(fields.createdAt, endDate)
@@ -120,22 +112,20 @@ export class DrizzleTaskRepository implements TaskRepository {
   async findManyByOrganization(
     organizationId: string,
     status: "Em andamento" | "Concluída" | "Cancelada" | null,
-    date: Date | null
+    startDate: Date | null,
+    endDate: Date | null
   ): Promise<ITaskList[]> {
-    const startDate = dayjs(date)
-      .add(dayjs(date).utcOffset(), "minutes")
-      .startOf("day")
-      .toDate();
-    const endDate = dayjs(date)
-      .add(dayjs(date).utcOffset(), "minutes")
-      .endOf("day")
-      .toDate();
+    console.log({
+      startDate,
+      endDate,
+    });
+
     const tasks = await db.query.taskSchema.findMany({
       where(fields, { eq, and, gte, lte }) {
         return and(
           eq(fields.organizationId, organizationId),
           status ? eq(fields.status, status) : undefined,
-          date
+          startDate && endDate
             ? and(
                 gte(fields.createdAt, startDate),
                 lte(fields.createdAt, endDate)
