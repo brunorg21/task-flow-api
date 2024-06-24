@@ -9,8 +9,13 @@ import { attachmentRoutes } from "./http/controllers/attachment/route";
 import { organizationRoutes } from "./http/controllers/organization/route";
 import { noteRoutes } from "./http/controllers/note/route";
 import { ZodError } from "zod";
+import cors from "@fastify/cors";
 
 const app = fastify();
+
+app.register(cors, {
+  origin: "http://localhost:3000",
+});
 
 app.register(fastifyJwt, {
   secret: env.SECRET_KEY,
@@ -40,7 +45,7 @@ app.setErrorHandler((error, _, reply) => {
   if (env.NODE_ENV !== "production") {
     console.error(error);
   } else {
-    //TODO
+    console.error(error);
   }
 
   return reply.status(500).send({
