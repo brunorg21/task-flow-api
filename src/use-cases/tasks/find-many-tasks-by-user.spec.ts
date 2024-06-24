@@ -39,8 +39,6 @@ describe("find many tasks by user use case", () => {
 
     const tasks = await sut.execute("user-id", "Em andamento", null, null);
 
-    console.log(tasks);
-
     expect(tasks).toHaveLength(2);
     expect(tasks).toEqual([
       expect.objectContaining({

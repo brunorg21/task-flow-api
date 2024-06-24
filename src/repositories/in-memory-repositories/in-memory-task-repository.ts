@@ -58,8 +58,6 @@ export class InMemoryTaskRepository implements TaskRepository {
         : task.userId === userId
     );
 
-    console.log(tasks);
-
     return await Promise.all(
       tasks.map(async (task) => {
         const attachments = await this.attachmentRepository.findManyByTaskId(
