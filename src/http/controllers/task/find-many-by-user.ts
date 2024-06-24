@@ -30,7 +30,6 @@ export async function findManyByUser(req: FastifyRequest, reply: FastifyReply) {
       tasks,
     });
   } catch (error) {
-    console.log(error);
     return reply.status(500).send({
       message: "Erro interno do servidor.",
       error,
