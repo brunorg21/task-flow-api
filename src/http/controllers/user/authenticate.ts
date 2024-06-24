@@ -5,7 +5,7 @@ import { z } from "zod";
 
 export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
   const authenticateRequestBodySchema = z.object({
-    email: z.string().email(),
+    email: z.string(),
     password: z.string(),
   });
 
@@ -28,7 +28,14 @@ export async function authenticate(req: FastifyRequest, reply: FastifyReply) {
         },
       }
     );
-    return reply.status(200).send({ token });
+    return reply.status(200).send({
+      token,
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+      },
+    });
   } catch (error) {
     if (error instanceof InvalidCredentialsError) {
       return reply.status(400).send({
