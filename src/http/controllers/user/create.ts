@@ -8,7 +8,9 @@ export async function create(req: FastifyRequest, reply: FastifyReply) {
   const createUserRequestBody = z.object({
     username: z.string(),
     email: z.string().email(),
-    password: z.string(),
+    password: z.string().min(5, {
+      message: "Senha deve conter no minímo 5 caracteres",
+    }),
   });
 
   const { email, username, password } = createUserRequestBody.parse(req.body);
