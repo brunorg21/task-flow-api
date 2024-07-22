@@ -43,6 +43,10 @@ export class DrizzleOrganizationRepository implements OrganizationRepository {
       (userOrganization) => userOrganization.organizationId
     );
 
+    if (organizationIds.length === 0) {
+      return [];
+    }
+
     const organizations = await db
       .select()
       .from(organizationSchema)
