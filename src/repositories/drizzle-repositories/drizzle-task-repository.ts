@@ -102,6 +102,7 @@ export class DrizzleTaskRepository implements TaskRepository {
       with: {
         note: true,
         attachment: true,
+        assignUser: true,
       },
       orderBy: (task, { desc }) => [desc(task.createdAt)],
     });
