@@ -1,5 +1,5 @@
 export class InvalidCredentialsError extends Error {
   constructor() {
-    super("Usuário não encontrado.");
+    super("Usuário ou senha inválidos.");
   }
 }
