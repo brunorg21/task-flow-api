@@ -18,10 +18,11 @@ export async function deleteOrganization(
   const deletOrganizationUseCase = makeDeleteOrganizationUseCase();
 
   try {
-    await deletOrganizationUseCase.execute(organizationId);
+    await deletOrganizationUseCase.execute(organizationId, req.user.sub);
 
     return reply.status(200).send();
   } catch (error) {
+    console.log(error);
     if (error instanceof ResourceNotFoundError) {
       return reply.status(400).send({
         message: error.message,
