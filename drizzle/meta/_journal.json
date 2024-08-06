@@ -22,6 +22,27 @@
       "when": 1715539560166,
       "tag": "0002_fearless_romulus",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1722555370603,
+      "tag": "0003_nice_newton_destine",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "5",
+      "when": 1722555417793,
+      "tag": "0004_nosy_james_howlett",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1722555439636,
+      "tag": "0005_steep_havok",
+      "breakpoints": true
     }
   ]
 }
