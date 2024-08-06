@@ -1,6 +1,8 @@
 export interface IOrganization {
   id: string;
   name: string;
+  slug: string | null;
+  ownerId: string;
   createdAt?: Date;
 }
 
