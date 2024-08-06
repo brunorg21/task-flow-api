@@ -10,8 +10,9 @@ import { organizationRoutes } from "./http/controllers/organization/route";
 import { noteRoutes } from "./http/controllers/note/route";
 import { ZodError } from "zod";
 import cors from "@fastify/cors";
+import { inviteRoutes } from "./http/controllers/invite/route";
 
-const app = fastify();
+const app = fastify({ logger: env.NODE_ENV !== "production" });
 
 app.register(cors, {
   origin: "http://localhost:3000",
@@ -33,6 +34,7 @@ app.register(taskRoutes);
 app.register(attachmentRoutes);
 app.register(organizationRoutes);
 app.register(noteRoutes);
+app.register(inviteRoutes);
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
@@ -43,7 +45,7 @@ app.setErrorHandler((error, _, reply) => {
   }
 
   if (env.NODE_ENV !== "production") {
-    console.error(error);
+    console.log(error);
   } else {
     console.error(error);
   }
