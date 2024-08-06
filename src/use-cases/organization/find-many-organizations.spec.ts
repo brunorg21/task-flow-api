@@ -22,6 +22,8 @@ describe("find many organization use case", () => {
     const organizationCreated = await inMemoryOrganizationRepository.create({
       createdAt: new Date(),
       name: "Organization 1",
+      ownerId: "user-01",
+      slug: "organization-1",
     });
 
     await inMemoryUserOrganizationRepository.create({

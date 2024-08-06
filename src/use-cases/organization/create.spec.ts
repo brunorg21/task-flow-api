@@ -23,6 +23,8 @@ describe("create organization use case", () => {
       {
         createdAt: new Date(),
         name: "Empresa 1",
+        ownerId: "user-01",
+        slug: "empresa-01",
       },
       "user-01"
     );

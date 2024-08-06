@@ -1,6 +1,7 @@
 import { IOrganizationCreate } from "@/models/organization-model";
 import { OrganizationRepository } from "@/repositories/organization-repository";
 import { UserOrganizationRepository } from "@/repositories/user-organization-repository";
+import { OrganizationWithSameNameError } from "../@errors/organization-with-same-name-error";
 
 export class CreateOrganizationUseCase {
   constructor(
@@ -9,11 +10,18 @@ export class CreateOrganizationUseCase {
   ) {}
 
   async execute(data: IOrganizationCreate, userId: string) {
-    const org = await this.organizationRepository.create(data);
+    const org = await this.organizationRepository.findByName(data.name);
+
+    if (org) {
+      throw new OrganizationWithSameNameError();
+    }
+
+    const createdOrg = await this.organizationRepository.create(data);
+
     await this.userOrganizationRepository.create({
-      organizationId: org.id,
+      organizationId: createdOrg.id,
       userId,
     });
-    return org;
+    return createdOrg;
   }
 }
