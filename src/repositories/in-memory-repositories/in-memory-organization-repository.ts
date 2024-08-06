@@ -14,11 +14,23 @@ export class InMemoryOrganizationRepository implements OrganizationRepository {
       id: randomUUID(),
       name: data.name,
       createdAt: data.createdAt,
+      ownerId: data.ownerId,
+      slug: data.slug,
     } as IOrganization;
 
     this.items.push(org);
 
     return org;
+  }
+
+  async findByName(name: string): Promise<IOrganization | null> {
+    const organization = this.items.find((e) => e.name === name);
+
+    if (!organization) {
+      return null;
+    }
+
+    return organization;
   }
 
   async findById(id: string): Promise<IOrganization | null> {

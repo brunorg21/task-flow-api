@@ -2,6 +2,7 @@ import { IUserOrganization } from "@/models/user-organization-model";
 import { UserOrganizationRepository } from "../user-organization-repository";
 import { db } from "@/db/connection";
 import { userOrganization } from "@/db/schemas";
+import { and, eq } from "drizzle-orm";
 
 export class DrizzleUserOrganizationRepository
   implements UserOrganizationRepository
@@ -29,5 +30,16 @@ export class DrizzleUserOrganizationRepository
     });
 
     return userOrganizations;
+  }
+
+  async delete(userId: string, orgId: string): Promise<void> {
+    await db
+      .delete(userOrganization)
+      .where(
+        and(
+          eq(userOrganization.userId, userId),
+          eq(userOrganization.organizationId, orgId)
+        )
+      );
   }
 }

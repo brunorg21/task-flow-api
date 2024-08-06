@@ -10,4 +10,5 @@ export interface OrganizationRepository {
   save(organization: IOrganization): Promise<void>;
   delete(id: string): Promise<void>;
   findMany(userOrganizations: IUserOrganization[]): Promise<IOrganization[]>;
+  findByName(name: string): Promise<IOrganization | null>;
 }

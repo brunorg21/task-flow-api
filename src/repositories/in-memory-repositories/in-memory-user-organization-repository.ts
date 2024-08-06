@@ -27,4 +27,12 @@ export class InMemoryUserOrganizationRepository
 
     return userOrganizations;
   }
+
+  async delete(userId: string, orgId: string): Promise<void> {
+    const userOrganizations = this.items.filter(
+      (item) => item.organizationId !== orgId && item.userId !== userId
+    );
+
+    this.items = userOrganizations;
+  }
 }
