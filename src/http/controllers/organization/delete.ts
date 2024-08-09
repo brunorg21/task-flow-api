@@ -22,7 +22,6 @@ export async function deleteOrganization(
 
     return reply.status(200).send();
   } catch (error) {
-    console.log(error);
     if (error instanceof ResourceNotFoundError) {
       return reply.status(400).send({
         message: error.message,
