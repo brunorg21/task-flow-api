@@ -7,20 +7,12 @@ export async function findInvitationsSendInvite(
   req: FastifyRequest,
   reply: FastifyReply
 ) {
-  const findInvitationsSendInviteRequestBodySchema = z.object({
-    senderId: z.string(),
-  });
-
-  const { senderId } = findInvitationsSendInviteRequestBodySchema.parse(
-    req.params
-  );
-
   const findInvitationsSendInviteUseCase =
     makeFindInvitationsSendInviteUseCase();
 
   try {
     const { invites } = await findInvitationsSendInviteUseCase.execute(
-      senderId
+      req.user.sub
     );
 
     return reply.status(200).send({
