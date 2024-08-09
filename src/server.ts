@@ -12,7 +12,7 @@ import { ZodError } from "zod";
 import cors from "@fastify/cors";
 import { inviteRoutes } from "./http/controllers/invite/route";
 
-const app = fastify({ logger: env.NODE_ENV !== "production" });
+const app = fastify();
 
 app.register(cors, {
   origin: "http://localhost:3000",
