@@ -27,6 +27,15 @@ export class InMemoryUserOrganizationRepository
 
     return userOrganizations;
   }
+  async findByOrganization(
+    organizationId: string
+  ): Promise<IUserOrganization[]> {
+    const userOrganizations = this.items.filter(
+      (userOrganization) => userOrganization.organizationId === organizationId
+    );
+
+    return userOrganizations;
+  }
 
   async delete(userId: string, orgId: string): Promise<void> {
     const userOrganizations = this.items.filter(
