@@ -32,6 +32,28 @@ export class DrizzleUserOrganizationRepository
     return userOrganizations;
   }
 
+  async findByOrganization(
+    organizationId: string
+  ): Promise<IUserOrganization[]> {
+    const userOrganizations = await db.query.userOrganization.findMany({
+      where(fields, { eq }) {
+        return eq(fields.organizationId, organizationId);
+      },
+      with: {
+        user: {
+          columns: {
+            id: true,
+            username: true,
+            password: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    return userOrganizations;
+  }
+
   async delete(userId: string, orgId: string): Promise<void> {
     await db
       .delete(userOrganization)

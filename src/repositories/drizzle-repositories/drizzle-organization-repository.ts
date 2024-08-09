@@ -39,10 +39,10 @@ export class DrizzleOrganizationRepository implements OrganizationRepository {
     return organization;
   }
 
-  async findByName(name: string): Promise<IOrganization | null> {
+  async findBySlug(slug: string): Promise<IOrganization | null> {
     const organization = await db.query.organizationSchema.findFirst({
       where(fields, { eq }) {
-        return eq(fields.name, name);
+        return eq(fields.slug, slug);
       },
     });
 

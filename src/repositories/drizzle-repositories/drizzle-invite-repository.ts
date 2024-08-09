@@ -27,6 +27,8 @@ export class DrizzleInviteRepository implements InviteRepository {
       },
       with: {
         sender: true,
+        organization: true,
+        recipient: true,
       },
     });
 
@@ -39,6 +41,8 @@ export class DrizzleInviteRepository implements InviteRepository {
       },
       with: {
         recipient: true,
+        organization: true,
+        sender: true,
       },
     });
 
