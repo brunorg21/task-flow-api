@@ -12,6 +12,6 @@ export async function inviteRoutes(app: FastifyInstance) {
   app.post("/invites", createInvite);
   app.delete("/invites/:inviteId", cancelInvite);
   app.patch("/invites/:inviteId", acceptInvite);
-  app.get("/invites/received/:recipientId", findInvitationsReceivedInvite);
-  app.get("/invites/sended/:senderId", findInvitationsSendInvite);
+  app.get("/invites/received", findInvitationsReceivedInvite);
+  app.get("/invites/sended", findInvitationsSendInvite);
 }
