@@ -43,6 +43,13 @@
       "when": 1722555439636,
       "tag": "0005_steep_havok",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1726448929896,
+      "tag": "0006_flimsy_colossus",
+      "breakpoints": true
     }
   ]
 }
