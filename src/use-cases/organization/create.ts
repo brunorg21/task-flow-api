@@ -10,7 +10,7 @@ export class CreateOrganizationUseCase {
   ) {}
 
   async execute(data: IOrganizationCreate, userId: string) {
-    const org = await this.organizationRepository.findByName(data.name);
+    const org = await this.organizationRepository.findBySlug(data.slug!);
 
     if (org) {
       throw new OrganizationWithSameNameError();
