@@ -32,6 +32,8 @@ describe("create user organization use case", () => {
     const org = await inMemoryOrganizationRepository.create({
       createdAt: new Date(),
       name: "Empresa 1",
+      ownerId: "user-1",
+      slug: "organization-1",
     });
 
     const { userOrganization } = await sut.execute(createdUser.email, org.id);
@@ -50,6 +52,8 @@ describe("create user organization use case", () => {
     const org = await inMemoryOrganizationRepository.create({
       createdAt: new Date(),
       name: "Empresa 1",
+      ownerId: "user-1",
+      slug: "organization-1",
     });
 
     expect(async () => {

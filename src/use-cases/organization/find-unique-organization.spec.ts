@@ -16,6 +16,8 @@ describe("find organization by id use case", () => {
     const organizationCreated = await inMemoryOrganizationRepository.create({
       createdAt: new Date(),
       name: "Organization 1",
+      ownerId: "user-1",
+      slug: "organization-1",
     });
 
     const organization = await sut.execute(organizationCreated.id);
