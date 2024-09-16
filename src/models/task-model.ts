@@ -21,7 +21,7 @@ export interface ITaskList {
   assignedId: string | null;
   status?: "Em andamento" | "Concluída" | "Cancelada";
   attachments?: IAttachment[];
-  note: INote[];
+  notes: INote[];
 }
 
 export type ITaskCreate = Omit<ITask, "id">;

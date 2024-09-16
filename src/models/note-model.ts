@@ -1,3 +1,4 @@
+import { User } from "@supabase/supabase-js";
 import { IAttachment } from "./attachment-model";
 
 export interface INote {
@@ -8,6 +9,7 @@ export interface INote {
   createdAt: Date;
   updatedAt: Date | null;
   attachments?: string[] | null | IAttachment[];
+  user?: User;
 }
 
 export type INoteCreate = Omit<INote, "id" | "createdAt" | "updatedAt">;
