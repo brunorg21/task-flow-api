@@ -37,6 +37,6 @@ export const taskRelations = relations(taskSchema, ({ one, many }) => ({
     references: [userSchema.id],
     relationName: "task-user",
   }),
-  note: many(noteSchema),
-  attachment: many(attachmentSchema),
+  notes: many(noteSchema),
+  attachments: many(attachmentSchema),
 }));

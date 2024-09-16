@@ -10,7 +10,9 @@ export const noteSchema = pgTable("note", {
     .$defaultFn(() => createId())
     .primaryKey(),
   taskId: text("taskId")
-    .references(() => taskSchema.id)
+    .references(() => taskSchema.id, {
+      onDelete: "cascade",
+    })
     .notNull(),
   authorId: text("authorId")
     .references(() => userSchema.id)
