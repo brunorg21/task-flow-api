@@ -10,7 +10,7 @@ export async function inviteRoutes(app: FastifyInstance) {
   app.addHook("onRequest", jwtVerify);
 
   app.post("/invites", createInvite);
-  app.delete("/invites/:inviteId", cancelInvite);
+  app.delete("/invites/cancel/:inviteId", cancelInvite);
   app.patch("/invites/:inviteId", acceptInvite);
   app.get("/invites/received", findInvitationsReceivedInvite);
   app.get("/invites/sended", findInvitationsSendInvite);
