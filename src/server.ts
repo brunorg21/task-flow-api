@@ -43,12 +43,7 @@ app.setErrorHandler((error, _, reply) => {
       issues: error.format(),
     });
   }
-
-  if (env.NODE_ENV !== "production") {
-    console.log(error);
-  } else {
-    console.error(error);
-  }
+  console.log(error);
 
   return reply.status(500).send({
     message: "Erro interno servidor",
