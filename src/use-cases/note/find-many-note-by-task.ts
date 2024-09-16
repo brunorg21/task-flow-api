@@ -25,7 +25,11 @@ export class FindManyNoteByTaskUseCase {
           taskId: note.taskId,
           updatedAt: note.updatedAt,
           attachments,
-        } as INote;
+          user: {
+            ...note.user,
+            password: undefined,
+          },
+        };
       })
     );
   }
