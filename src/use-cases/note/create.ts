@@ -12,7 +12,7 @@ export class CreateNoteUseCase {
   async execute(data: INoteCreate) {
     const note = await this.noteRepository.create(data);
 
-    if (data.attachments) {
+    if (data.attachments && data.attachments.length > 0) {
       const attachments = await this.attachmentRepository.findMany(
         data.attachments as string[]
       );
