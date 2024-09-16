@@ -15,7 +15,7 @@ export async function findManyByTask(req: FastifyRequest, reply: FastifyReply) {
   try {
     const notes = await findManyByTask.execute(taskId);
 
-    return reply.status(201).send({
+    return reply.status(200).send({
       notes,
     });
   } catch (error) {
