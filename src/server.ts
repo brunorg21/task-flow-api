@@ -43,7 +43,6 @@ app.setErrorHandler((error, _, reply) => {
       issues: error.format(),
     });
   }
-  console.log(error);
 
   return reply.status(500).send({
     message: "Erro interno servidor",
