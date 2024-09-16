@@ -1,4 +1,5 @@
 import { makeEditOrganizationUseCase } from "@/http/factories/make-edit-organization-use-case";
+import { OrganizationWithSameNameError } from "@/use-cases/@errors/organization-with-same-name-error";
 import { ResourceNotFoundError } from "@/use-cases/@errors/resource-not-found-error";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
@@ -27,6 +28,13 @@ export async function edit(req: FastifyRequest, reply: FastifyReply) {
     return reply.status(201).send();
   } catch (error) {
     if (error instanceof ResourceNotFoundError) {
+      return reply.status(400).send({
+        message: error.message,
+        cause: error.cause,
+        name: error.name,
+      });
+    }
+    if (error instanceof OrganizationWithSameNameError) {
       return reply.status(400).send({
         message: error.message,
         cause: error.cause,
