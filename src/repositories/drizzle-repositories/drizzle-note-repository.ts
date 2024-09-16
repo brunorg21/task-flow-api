@@ -50,6 +50,7 @@ export class DrizzleNoteRepository implements NoteRepository {
       },
       with: {
         attachment: true,
+        user: true,
       },
     });
 

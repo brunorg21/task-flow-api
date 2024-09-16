@@ -68,8 +68,8 @@ export class DrizzleTaskRepository implements TaskRepository {
         return eq(fields.id, taskId);
       },
       with: {
-        note: true,
-        attachment: true,
+        notes: true,
+        attachments: true,
       },
     });
 
@@ -77,7 +77,10 @@ export class DrizzleTaskRepository implements TaskRepository {
       return null;
     }
 
-    return task;
+    return {
+      ...task,
+      attachments: task.attachments.map((attachment) => attachment.id),
+    };
   }
 
   async findManyByUser(
@@ -87,9 +90,10 @@ export class DrizzleTaskRepository implements TaskRepository {
     endDate: Date | null
   ): Promise<ITaskList[]> {
     const tasks = await db.query.taskSchema.findMany({
-      where(fields, { eq, and, gte, lte }) {
+      where(fields, { eq, and, gte, lte, isNull }) {
         return and(
           eq(fields.userId, userId),
+          isNull(fields.organizationId),
           status ? eq(fields.status, status) : undefined,
           startDate && endDate
             ? and(
@@ -100,8 +104,8 @@ export class DrizzleTaskRepository implements TaskRepository {
         );
       },
       with: {
-        note: true,
-        attachment: true,
+        notes: true,
+        attachments: true,
         assignUser: true,
       },
       orderBy: (task, { desc }) => [desc(task.createdAt)],
@@ -130,8 +134,9 @@ export class DrizzleTaskRepository implements TaskRepository {
         );
       },
       with: {
-        note: true,
-        attachment: true,
+        notes: true,
+        attachments: true,
+        assignUser: true,
       },
       orderBy: (task, { desc }) => [desc(task.createdAt)],
     });
