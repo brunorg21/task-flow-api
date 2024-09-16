@@ -18,7 +18,7 @@ export class DeleteTaskUseCase {
       task.id
     );
 
-    if (attachments) {
+    if (attachments && attachments.length > 0) {
       await this.attachmentRepository.deleteMany(
         attachments.map((attachment) => attachment.id)
       );

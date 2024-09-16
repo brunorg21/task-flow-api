@@ -12,7 +12,7 @@ export class CreateTaskUseCase {
   async execute(data: ITaskCreate) {
     const task = await this.taskRepository.create(data);
 
-    if (data.attachments) {
+    if (data.attachments && data.attachments.length > 0) {
       const attachments = await this.attachmentRepository.findMany(
         data.attachments
       );
